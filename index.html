@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="description" content="مرحبا بكم في موقعي الشخصي. أنا ، مطور ويب ومصمم جرافيك، أقدم خدمات تصميم وتطوير المواقع وتطبيقات الهواتف المحمولة. تعرف على مشاريعي ومهاراتي وكيفية التواصل معي.">
+<meta name="keywords" content="مطور ويب, تصميم مواقع, تطوير مواقع, تطبيقات الهواتف المحمولة, تصميم جرافيك, محفظة أعمال, شخصي">
+<meta name="author" content="مشتاق الوتر">
+<title>مطور تطبيقات اندرويد وتطبيقات الويب مشتاق الوتر </title>
+
+	<!-- <meta name="description" content=" الوتر سوفت لتقديم خدمات إنشاء وتطوير المواقع الإلكترونية وتطبيقات الموبايل بأعلى جودة واحترافية. "> -->
+	<!-- <meta name="keywords" content="تصميم مواقع, تطوير مواقع, تطبيقات الموبايل, خدمات الويب, تطوير برمجيات, الوتر سوفت ">       -->
+	<!-- <meta name="description" 
+content="انشاء موقع ويب،انشاء موقع الكتروني، برمجه مواقع الويب وتطبيقات المبايل، تطوير مواقع الويب، انشاء وتطوير التطبيقات، الوتر سوفت للبرمجيات، تقديم الخدمات البرمجيه، برمجه تطبيقات الجوال، برمجه تطبيقات المبايل، برمجه مواقع الانترنت"/> -->
+
+	<!-- <meta
+      name="description"
+      content="نحن نقدم خدمات برمجة مواقع الويب عالية الجودة وتطبيقات الهاتف المحمول المتميزة. اتصل بنا لبناء وبرمجة الأنظمة التي تلبي احتياجاتك."
+    /> -->
+	<!-- <meta name="keywords"
+      content="برمجة مواقع الويب, تطبيقات الهاتف المحمول, تصميم واجهة المستخدم"/>
+      <metaname="description" content="تصميم المواقع الاكترونيه، تصميم صفحات الويب، تصميم المواقع والصفحات." /> -->
+
+	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+	<link rel="icon" type="image/svg+xml" href="img/Aseelsoftlogo.jpg" />
+	<style>
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+
+		body {
+			font-family: "Cairo", sans-serif;
+			/*font-family: 'Amiri', serif;*/
+			/*font-family: Arial, sans-serif;*/
+			background-color: #f2f2f2;
+			text-align: center;
+			margin: 0;
+			padding: 0px;
+		}
+
+		.profile-img {
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			object-fit: cover;
+			/*margin: 20px auto;*/
+			border: 4px solid #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+
+		h1 {
+			color: #333;
+			margin-bottom: 10px;
+		}
+
+		p {
+			color: #666;
+			margin-bottom: 20px;
+		}
+
+		.card {
+            flex:1;
+			min-width: 300px;
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+			overflow: hidden;
+			position: relative;
+			margin: 15px 15px 15px 15px;
+		}
+
+		.card-image {
+			width: 100%;
+			height: 200px;
+		}
+
+		.card-content {
+			padding: 5px;
+		}
+
+		.card-title {
+			font-size: 18px;
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+
+		.card-description {
+			font-size: 16px;
+			color: #666;
+			margin-bottom: 20px;
+		}
+
+		.card-animation {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			flex-direction: column;
+		}
+
+		.card-animation:hover {
+			opacity: 0.4;
+		}
+
+		.card-animation h2 {
+			color: #fff;
+			font-size: 24px;
+			margin-bottom: 10px;
+		}
+
+		.card-animation p {
+			color: #fff;
+			font-size: 16px;
+		}
+
+		.whatsapp-container {
+			position: fixed;
+			bottom: 10px;
+			right: 0;
+			padding: 20px;
+			/* background-color: #25D366; */
+			border-radius: 50%;
+			color: #fff;
+			z-index: 9999;
+		}
+
+		.whatsapp-icon {
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 10px;
+			width: 50;
+			height: 50px;
+		}
+
+		.whatsapp-text {
+			display: inline-block;
+			color: #000;
+			vertical-align: middle;
+			font-size: 16px;
+		}
+
+		.phone-number {
+			color: #fff;
+			text-decoration: none;
+		}
+
+		.phone-number:hover {
+			text-decoration: underline;
+		}
+
+		.whatsapp-container1 {
+			position: fixed;
+			bottom: 8px;
+			right: 95px;
+			padding: 20px;
+			border-radius: 50%;
+			color: #fff;
+			z-index: 9999;
+		}
+
+		nav ul {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		nav ul li {
+			display: inline;
+			margin-right: 10px;
+		}
+
+		nav ul li a {
+			text-decoration: none;
+			color: #333;
+		}
+
+		section {
+			padding: 5px;
+
+			/* text-align:right; */
+		}
+
+		#services,
+		#projects {
+			padding: 20px;
+			text-align: center;
+		}
+
+		#header-text p {
+			padding: 20px;
+			text-align: center;
+		}
+
+		section p {
+			line-height: 1.5;
+			padding: 5px;
+		}
+
+		section a,
+		section h2 {
+			display: inline-block;
+			background-color: #333;
+			color: #fff;
+			padding: 10px 20px;
+			text-decoration: none;
+			margin-top: 10px;
+		}
+
+		/* header {
+          background-color: #f2f2f2;
+          padding: 0px;
+        }*/
+		header {
+			background-color: #f2f2f2;
+		}
+
+		header h1 {
+			background-color: #fff;
+			margin: 0;
+		}
+
+		.card:hover {
+			animation: mymove 4s infinite;
+		}
+
+		@keyframes mymove1 {
+			30% {
+				width: 62%;
+				box-shadow: 10px 20px 30px rgb(37, 37, 39);
+			}
+		}
+
+		@keyframes mymove {
+			30% {
+				width: 370px;
+				box-shadow: 10px 20px 30px rgb(37, 37, 39);
+
+			}
+		}
+
+		.profile-im {
+			max-height: 400px;
+            object-fit:cover;
+		}
+
+		@media (max-width: 920px) {
+			.profile-im {
+				width: 100%;
+			}
+
+		}
+
+		@media (min-width: 722px) {
+			.profile-im {
+				width: 100%;
+				hieght: 350px;
+                max-width: 700px;
+                object-fit: cover;
+			}
+		}
+
+		@media (min-width: 922px) {
+			.profile-im {
+				width: 80%;
+                max-width:700px;
+				border-radius: 10px;
+				hieght: 350px;
+                object-fit:cover;
+                box-shadow:10px 10px 20px #667777;
+			}
+			section ul,
+			section p {
+				text-align: center;
+			}
+			main,
+			section,
+			.contant {
+				padding:40px ;
+			}
+			.service-browser-sec {
+				width: 300px;
+			}
+			/*
+        #services,
+        #projects {
+          margin: auto;
+          width: 60%;
+          padding: 20px;
+          text-align: center;
+        }*/
+			#header-text {
+
+				margin: auto;
+				width: 60%;
+				text-align: center;
+			}
+			/*
+        .card-image {
+          height: 400px;
+        }
+        .card-des {
+          width: 100%;
+        }
+        .card {
+          width: 60%;
+        }
+        .card:hover {
+          animation: mymove1 4s infinite;
+        }*/
+
+		}
+
+		main {}
+
+		.steps {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.step {
+			display: flex;
+			width: 350px;
+			margin: 0px 10px 10px 10px;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			background-color: #fff;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		.step-number {
+			background-color: #a3a3a3;
+			border-radius: 8px;
+			padding: 0px 10px;
+			font-size: 36px;
+			font-weight: bold;
+			color: #008080;
+			margin-left: 10px;
+		}
+
+		.step-title {
+			margin: auto 20px;
+			text-align: center;
+			font-size: 18px;
+			line-height: 1.5;
+		}
+
+		.step-image {
+			width: 70px;
+		}
+
+		.step-serves {
+			padding: 5px;
+			display: flex;
+			width: 350px;
+			margin-bottom: 10px;
+			margin-right: 10px;
+			margin-left: 10px;
+			border-radius: 5px;
+			background-color: #fff;
+		}
+
+		.step-img img {
+			border: 1px solid #ddd;
+			border-radius: 7px;
+		}
+
+		.card-des-image {
+			margin-top: 10px;
+			border-radius: 7px;
+			width: 100px;
+		}
+
+		.card-des {
+            flex:1;
+			min-width: 300px;
+			border-radius: 10px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+			overflow: hidden;
+			position: relative;
+			margin: 10px 10px;
+		}
+
+		.card-des p {
+			text-align: center;
+		}
+
+		.card-content h3 {
+			text-align: center;
+		}
+
+		.icolord {
+			color: #ff5722;
+			/* لون مميز */
+		}
+
+		.footer {
+			background-color: #333333;
+			color: #ffffff;
+			padding: 20px;
+			text-align: center;
+			position: relative;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			bottom: 0;
+			width: 100%;
+		}
+
+		.footer h2 {
+			font-size: 1.8rem;
+			margin: 0 0 10px;
+		}
+
+		.footer p {
+			color: #ddd;
+			font-size: 1rem;
+			margin: 5px 0;
+		}
+
+		.footer .contact-info {
+			margin: 10px 0;
+		}
+
+		.footer .contact-info p {
+			margin: 5px 0;
+		}
+
+		.footer .contact-info span {
+			display: block;
+		}
+
+		.footer .rights {
+			margin-top: 10px;
+			font-size: 0.9rem;
+		}
+
+		@media (max-width: 600px) {
+			.footer h2 {
+				font-size: 1.5rem;
+			}
+			.footer p {
+				font-size: 0.9rem;
+			}
+			.footer .rights {
+				font-size: 0.8rem;
+			}
+		}
+
+		.service-browser {
+			padding: 5px 10px;
+			display: flex;
+			flex-wrap: wrap;
+			margin: 5px;
+			justify-content: space-between;
+			width: 100%;
+			border-radius: 5px;
+		}
+
+		.service-browser-sec {
+			flex: 1;
+			text-align: right;
+			min-width: 170px;
+		}
+
+        #projects p{
+            text-align:right;
+        }
+		h5,
+		h6 {
+			font-weight: 200;
+			font-size: 16px;
+			padding: 0px;
+			margin: 15px 0px;
+			line-height: 1.3;
+		}
+
+		.service-browser-sec p {
+			padding: 0px;
+			margin: 15px 0px;
+			line-height: 1.3;
+		}
+
+		header {
+			margin: 0px;
+			padding: 0px;
+		}
+
+
+
+		:root {
+			--header-height: 2rem;
+			--font-medium: 500;
+			--text-color-light: #a6a6a6;
+			--body-color: #fbfefd;
+
+			--first-color: #069c54;
+			--z-fixed: 100;
+			--mb-2: 1rem;
+		}
+
+		.l-header {
+			width: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: var(--z-fixed);
+			background-color: var(--body-color);
+		}
+
+		.bd-container {
+			max-width: 960px;
+			width: calc(100% - 2rem);
+		}
+
+		/*========== NAV ==========*/
+		.nav {
+			max-width: 1024px;
+			height: var(--header-height);
+			display: flex;
+			text-align: center;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.nav__item {
+			padding: 10px;
+			margin-bottom: var(--mb-2);
+		}
+
+		.nav__link,
+		.nav__toggle {
+			color: var(--text-color);
+			font-weight: var(--font-medium);
+		}
+
+		.nav__link {
+			transition: 0.3s;
+		}
+
+		.nav__link:hover {
+			color: var(--first-color);
+		}
+
+		.nav__toggle {
+			font-size: 1.3rem;
+			cursor: pointer;
+		}
+
+		/* Show menu */
+		.show-menu {
+			top: var(--header-height);
+		}
+
+		/* Active menu */
+		.active-link {
+			color: var(--first-color);
+		}
+
+		/* Change background header */
+		.scroll-header {
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		ul {
+			padding: 0;
+			list-style: none;
+		}
+
+		#home {
+			padding-top: 9px;
+		}
+
+		.contant {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+		}
+
+        #home{
+            margin-top:20px;
+        }
+
+		.subheader {
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<!--========== SCROLL TOP ==========-->
+	<a href="#" class="scrolltop" id="scroll-top">
+		<i class="bx bx-chevron-up scrolltop__icon"></i>
+    </a>
+    <header class="l-header" id="header">
+      <nav class="nav bd-container">
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item" >
+              <a id="#home" class="nav__link active-link">الرئيسية</a>
+            </li>
+            <li class="nav__item">
+              <a id="#contact" class="nav__link"> المحتوئ</a>
+            </li>
+            <li class="nav__item">
+              <a id="#services" class="nav__link">الخدمات</a>
+            </li>
+            <li class="nav__item">
+              <a id="#about" class="nav__link">معلوماتنا</a>
+            </li>
+          </ul>
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="bx bx-menu"></i>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main id="home">
+      <h1><span class="icolord">الوتر</span> سوفت</h1>
+      <img
+        class="profile-im"
+        src="img/moshtaqimg.jpg"
+      />
+    </main>
+    <main class="subheader">
+      <h2>
+        مرحبا بكم في موقع <span class="icolord">مشتاق الوتر </span> الشخصي - مطور ويب ومطور تطبيقات الموبايل 
+      </h2>
+      
+      <p id="header-text">
+     ، مطور ويب ومطور تطبيقات المبايل أسعى لتقديم حلول متميزة في عالم البرمجة وتصميم المواقع وتطبيقات الهواتف الذكية. هنا تجد مشاريع أعمالي وخبرتي ومهاراتي التي تتيح لي تلبية احتياجاتك الرقمية بطرق مبتكرة وفعالة. أتطلع إلى أن يكون هذا الموقع نقطة انطلاق للتعاون المثمر وتحقيق أهدافك الرقمية.
+      </p>
+  </main>
+  
+   
+<div class="contant">
+    <div class="card">
+      <img class="card-image" src="img/network.jpg" alt="فريق العمل " />
+      <div class="card-content">
+         <h2 class="card-title">
+                جودة متميزة وتقنيات حديثة
+          </h2>
+            <p class="card-description">
+                فريقنا يعتمد على تقنيات حديثة وأدوات مبتكرة لتطوير منتجات تلبي احتياجاتك وتتجاوب مع متطلبات السوق بكفاءة.
+            </p>
+
+        <!-- <h2 class="card-title">
+          تعتمد خدماتنا على فريق محترف من المطورين ومصممي واجهة المستخدم الخبراء
+          الذين يستخدمون أحدث التقنيات والأدوات لتقديم منتج نهائي متميز.
+        </h2> -->
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="profile-img" src="img/moshtaqimg.jpg" alt="مطور البرمجيات " />
+      <h1>م/ مشتاق الوتر </h1>
+      <p>مطور برمجيات</p>
+    </div>
+
+     <div class="card">
+         <img class="card-image" src="img/AI.jpg" alt="الابتكار والتخصص " />
+      <div class="card-content">
+          <h3 class="card-title">
+                ابتكار وتخصص لنجاح أعمالك
+            </h3>
+            <p class="card-description">
+                نحن نقدم الحلول المتخصصة التي تلبي احتياجات قطاعات الأعمال المختلفة، ونسعى جاهدين لتحقيق نجاحك في السوق الرقمي بأفضل الطرق.
+            </p>
+
+        <!-- <h3 class="card-title">
+          نبتكر من اجل نجاح نشاطك , مهما كان قطاع الاعمال الذي تهتم به , نقدم
+          الحل المتخصص والمناسب لحاجة كل عميل على حده.
+        </h3> -->
+      </div>
+    </div>
+
+    <div class="card" id="contact">
+      <img class="card-image" src="img/des.jpg" alt="تطوير المواقع الويب " />
+      <div class="card-content">
+        <h2 class="card-title">
+            تطوير المواقع الويب
+            </h2>
+          <p class="card-description">
+            نحن نقدم خدمات برمجة مواقع الويب عالية الجودة. يمكننا تلبية
+            احتياجاتك البرمجية الفريدة وتصميم وبرمجة الأنظمة التي تحقق أهدافك.
+          </p>
+        
+      </div>
+    </div>
+
+    <div class="card" >
+        
+      <img class="card-image" src="img/android.jpg" alt="تطوير التطبيقات الجوالة " />
+      <div class="card-content">
+          <h3 class="card-title">تجربة متميزة على الهواتف الذكية</h3>
+            <p class="card-description">
+                صناعة وتطوير تطبيقات تتميز بسهولة الاستخدام والتفاعلية العالية لتوفير تجربة فريدة للمستخدمين عبر الهواتف الذكية.
+            </p>
+
+        <!-- <h3 class="card-title">إنشاء وتطوير الأنظمة وتطبيقات الجوال</h3>
+        <p>
+          صناعه تجربة مميزة وواجهات مريحة للمستخدمين للحصول
+          على خدماتك ومنتجاتك بكل سهولة عبر هواتفهم الذكية في أي وقت.
+        </p> -->
+      </div>
+    </div>
+   
+    <div class="card">
+      <img class="card-image" src="img/and.jpg" alt="تصميم تطبيقات الموبايل " />
+      <div class="card-content">
+          <h2 class="card-title">تصميم تطبيقات الموبايل الرائعة</h2>
+            <p class="card-description">
+                نقدم تصميمات مبتكرة وجذابة لتطبيقات الموبايل، مع التركيز على سهولة الاستخدام والأداء الممتاز.
+            </p>
+
+        <!-- <h2 class="card-title">تطبيقات المبايل</h2>
+        <p>
+          صناعه وتطوير تطبيقات تتميز بسهولة التعامل وقابليه التطوير وابداع في
+          تصميم الواجهات
+        </p> -->
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-image" src="img/webdis.jpg" alt="تطوير الأنظمة والمواقع " />
+      <div class="card-content">
+        <h2 class="card-title">تطوير الانظمة والمواقع</h2>
+        <p class="card-description">
+            نقوم بتطوير ميزات متعددة وربطها مع مختلف الأنظمة لتسهيل إدارة جميع أعمالك من خلال تطبيق واحد.
+        </p>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-image" src="img/delvoper.jpg" alt="تطوير الميزات " />
+      <div class="card-content">
+          <h2 class="card-title">تطوير الميزات</h2>
+        <p class="card-description">
+            نقوم بتطوير مجموعة متنوعة من الميزات وربطها مع مختلف الأنظمة لتوفير تجربة متكاملة وفعالة لإدارة أعمالك.
+        </p>
+
+        <!-- <h2 class="card-title"></h2>
+        <p class="card-description">
+          تطوير العديد من الميزات وربط مع مختلف الانظمة للقيام بكل اعمالك من
+          تطبيق واحد
+        </p> -->
+      </div>
+    </div>
+ </div>
+ <section id="services1">
+  <h1>
+    لماذا تختارني <span class="icolord"></span> لإنشاء موقع إلكتروني أو تطبيق جوال؟
+  </h1>
+  <p>
+    أنا لست مجرد مطور ويب أو مصمم تطبيقات، بل أقدم لك دعمًا مستمرًا لضمان أن يعمل موقعك الإلكتروني أو تطبيقك الجوال بأفضل شكل ممكن. سأكون شريكك التقني في تحقيق أهدافك الرقمية وتقديم الحلول التي تحتاجها.
+  </p>
+  <div class="contant">
+      <div class="card-des">
+          <!-- <img class="card-des-image" src="your-image-path/image1.jpg" alt="صورة الكرت" /> -->
+          <div class="card-content">
+              <h3 class="card-title">معايير الجودة العالية.</h3>
+              <p class="card-description">
+                  أحرص على تنفيذ مشاريع تصميم المواقع الإلكترونية وتطبيقات الهواتف وفقًا لأعلى معايير الجودة، لتأمين بيانات المستخدمين وتوفير تجربة مستخدم متميزة تدعم أهدافك الشخصية والمهنية.
+              </p>
+          </div>
+      </div>
+      <div class="card-des">
+          <!-- <img class="card-des-image" src="your-image-path/image1.jpg" alt="صورة الكرت" /> -->
+          <div class="card-content">
+              <h3 class="card-title">مراحل التنفيذ الواضحة.</h3>
+              <p class="card-description">
+                  بعد تحليل متطلبات مشروعك، سأقدم لك عرضًا فنيًا وماليًا يوضح مراحل التنفيذ والمدد الزمنية، بالإضافة إلى توضيح الميزات الرئيسية والخدمات الإضافية التي أقدمها.
+              </p>
+          </div>
+      </div>
+      <div class="card-des">
+          <!-- <img class="card-des-image" src="your-image-path/image1.jpg" alt="صورة الكرت" /> -->
+          <div class="card-content">
+              <h3 class="card-title">مواكبة أحدث التطورات.</h3>
+              <p class="card-description">
+                  لضمان استفادتك من الموقع أو التطبيق، لا أكتفي بتنفيذ مهام التصميم والبرمجة فقط، بل أطبق أيضًا المعايير الفنية الأساسية لتحسين نتائج حملات التسويق الرقمي التي قد تطلقها مستقبلاً.
+              </p>
+          </div>
+      </div>
+  </div>
+</section>
+
+    <section id="services">
+      <h2>خدماتنا</h2>
+      <p>نقدم مجموعة شاملة من خدمات برمجة مواقع الويب عالية الجودة وتطبيقات الهاتف المحمول. تشمل خدماتنا:</p>
+             
+
+      <main >
+        <ul class="steps">
+          <li class="step-serves">
+            <div class="step-img">
+              <img
+                class="step-image"
+                src="img/www.avif"
+                alt="إنشاء وتطوير تطبيقات الويب"
+              />
+            </div>
+            <div>
+            <h3 class="step-title">
+              إنشاء وتطوير تطبيقات الويب والمواقع الإلكترونية
+            </h3>
+            <!--<p>نقوم بإنشاء وتطوير مواقع إلكترونية احترافية تلبي احتياجات عملك.</p>-->
+            </div>
+                          
+          </li>
+          <li class="step-serves">
+            <div class="step-img">
+              <img
+                class="step-image"
+                src="img/anddel.png"
+                alt="انشاء وتطوير تطبيقات الجوال"
+              />
+            </div>
+            <h3 class="step-title">انشاء وتطوير تطبيقات الجوال</h3>
+          </li>
+          <li class="step-serves">
+            <div class="step-img">
+              <img
+                class="step-image"
+                src="img/seo.png"
+                alt="تحسين محركات البحث (SEO)"
+              />
+            </div>
+            <h3 class="step-title">تحسين محركات البحث (SEO)</h3>
+          </li>
+          <li class="step-serves">
+            <div class="step-img">
+              <img
+                class="step-image"
+                src="img/api.png"
+             alt="تكامل واجهات برمجة التطبيقات (API)"
+              />
+            </div>
+            <h3 class="step-title">تكامل واجهات برمجة التطبيقات (API)</h3>
+          </li>
+          <li class="step-serves">
+            <div class="step-img">
+              <img
+                class="step-image"
+                src="img/shop.jpg"
+                alt="إنشاء متاجر إلكترونية"
+              />
+            </div>
+            <h3 class="step-title">إنشاء متجر الإلكترونية</h3>
+          </li>
+          <li class="step-serves">
+            <div class="step-img">
+             <img class="step-image" src="img/tarifi.jpg" alt="تصميم المواقع التعريفية والديناميكية"/>
+</div>
+<h3 class="step-title">تصميم  المواقع التعريفيه والدينميكيه بلوحات تحكم كامله </h3>
+         </li>
+        </ul>
+      </main>
+    </section>
+
+
+    <section id="projects">
+      <h3>7 خطوات لتصميم موقع الكتروني او تطبيق احترافي</h3>
+
+      <main>
+        <ul class="steps">
+          <li class="step">
+            <div class="step-number">1</div>
+            <div class="step-title">التعرف على جميع متطلبات مشروعك</div>
+          </li>
+          <li class="step">
+            <div class="step-number">2</div>
+            <div class="step-title">تحليل المشروع وتقديم عرض فني ومالي</div>
+          </li>
+          <li class="step">
+            <div class="step-number">3</div>
+            <div class="step-title">تصميم محاكاة كاملة لتجربة المستخدم</div>
+          </li>
+          <li class="step">
+            <div class="step-number">4</div>
+            <div class="step-title">تصميم واجهات المستخدم بشكل تفاعلي</div>
+          </li>
+          <li class="step">
+            <div class="step-number">5</div>
+            <div class="step-title">برمجة الواجهة الأمامية والخلفية والربط</div>
+          </li>
+          <li class="step">
+            <div class="step-number">6</div>
+            <div class="step-title">إجراء الاختبارات الفنية وتوكيد الجودة</div>
+          </li>
+          <li class="step">
+            <div class="step-number">7</div>
+            <div class="step-title">تسليم المشروع وبدء التشغيل الفعلي</div>
+          </li>
+          <li class="step">
+            <div class="step-number">8</div>
+            <div class="step-title">دعم فني مميز ومجاني لمدة عام كامل</div>
+          </li>
+        </ul>
+      </main>
+    </section>
+
+    <section id="projects">
+      <h1> استكشاف خدمات البرمجة والتطوير  </h1>
+
+      <div class="service-browser">
+        <div class="service-browser-sec">
+          <h3>تطوير المواقع</h3>
+          <p>إنشاء موقع إلكتروني مبتكرة</p>
+          <p>تخصيص وتعديل المواقع الحالية</p>
+          <p>إصلاح أخطاء المواقع</p>
+          <p>نسخ احتياطي ونقل استضافة</p>
+          <p>تأمين وحماية المواقع</p>
+          <p>اختبارات تجريبية</p>
+        </div>
+        <div class="service-browser-sec">
+          <h3>برمجة تطبيقات الجوال</h3>
+          <p>إنشاء وتطوير التطبيقات</p>
+          <p>تعديل التطبيقات</p>
+          <p>إصلاح مشكلات التقنية</p>
+          <p>تحويل الموقع إلى تطبيق</p>
+          <p>رفع التطبيقات على المتاجر الرئيسية</p>
+          <p>إعلانات تطبيقات الجوال</p>
+        </div>
+        <div class="service-browser-sec">
+          <h3>تطوير البرمجيات</h3>
+          <p>إنشاء تطبيقات الويب   </p>
+          <p>واجهات API والتكاملات</p>
+          <p>تطوير بوابات الدفع الإلكتروني   </p>
+        </div>
+        <div class="service-browser-sec">
+          <h3>دعم فني تقني</h3>
+          <p>أنظمة التشغيل والبرمجيات</p>
+          <p>أمن وحماية البيانات</p>
+          <p>إدارة السيرفرات </p>
+          <p>إدارة الشبكات</p>
+        </div>
+      </div>
+    </section>
+    <footer class="footer" id="about">
+      <h2><span class="icolord">الوتر</span> سوفت</h2>
+      <p>
+        يمكنك التواصل معي  للحصول على استشارة مجانية أو لبدء مشروعك معي. استخدم
+        البيانات التالية للتواصل معي:
+      </p>
+      <div class="contact-info">
+       <p><span>العنوان:</span> المملكة العربية السعودية , الرياض ، حي ام الحمام</p>
+        <p><span>الهاتف:</span> +966534781240</p>
+        <p><span>البريد الإلكتروني:</span> moshtaqkaidalwtr@gmail.com</p>
+      </div>
+      <div class="rights">
+        <p>جميع الحقوق محفوظة © 2024 | <span class="icolord">الوتر </span> سوفت</p>
+      </div>
+    </footer>
+
+    <div class="whatsapp-container">
+      <a
+        class="whatsapp-icon"
+        href="https://wa.me/+966534781240"
+        target="_blank"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+          width="35px"
+          style="border-radius: 10px; background-color: #63e6be; padding: 5px"
+        >
+          <path
+            fill="#fff"
+            d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"
+          /></svg
+        ><br />
+        <span class="whatsapp-text">تواصل معنا </span>
+      </a>
+    </div>
+    <div class="whatsapp-container1">
+      <a class="whatsapp-icon" href="tel:+966534781240" target="_blank">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          width="35px"
+          style="border-radius: 5px; background-color: #63e6be; padding: 5px"
+        >
+          <path
+            fill="#fff"
+            d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"
+          />
+        </svg>
+
+        <br />
+        <span class="whatsapp-text"> اتصل بنا</span>
+      </a>
+    </div>
+     <!-- <script src="mysite/main.js"> -->
+     <script >
+    
+     
+      /*==================== SHOW MENU ====================*/
+      const showMenu = (toggleId, navId) => {
+        const toggle = document.getElementById(toggleId),
+          nav = document.getElementById(navId);
+
+        // Validate that variables exist
+        if (toggle && nav) {
+          toggle.addEventListener("click", () => {
+            // We add the show-menu class to the div tag with the nav__menu class
+            nav.classList.toggle("show-menu");
+          });
+        }
+      };
+      showMenu("nav-toggle", "nav-menu");
+
+      /*==================== REMOVE MENU MOBILE ====================*/
+      const navLink = document.querySelectorAll(".nav__link");
+    //   const navLink = document.querySelectorAll(".nav__menu span");
+      function linkAction() {
+        const navMenu = document.getElementById("nav-menu");
+        // When we click on each nav__link, we remove the show-menu class
+        navMenu.classList.remove("show-menu");
+      }
+      
+  
+
+      navLink.forEach((n) =>{
+  n.addEventListener("click", function() {
+    const elementId = this.id;
+    // Generate ID based on the navbar item text
+    const element = document.querySelector(elementId);
+  if (element) {
+      const sectionTop = element.offsetTop - 50;
+     
+      scrollToPosition(sectionTop);
+    // element.scrollIntoView({ behavior: 'smooth' });
+  }
+    // scrollToElement(elementId);
+  });
+});
+//       navLink.forEach((n)=> {
+          
+// n.addEventListener("click", linkAction)});
+      
+
+      /*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
+      const sections = document.querySelectorAll("section[id]");
+
+      function scrollActive() {
+        const scrollY = window.pageYOffset;
+
+        sections.forEach((current) => {
+          const sectionHeight = current.offsetHeight;
+          const sectionTop = current.offsetTop - 50;
+          sectionId = current.getAttribute("id");
+        //   scrollToPosition(sectionTop);
+
+          if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+            document
+              .querySelector(".nav__menu a[id*=" + sectionId + "]")
+              .classList.add("active-link");
+          } else {
+            document
+              .querySelector(".nav__menu a[id*=" + sectionId + "]")
+              .classList.remove("active-link");
+          }
+        });
+      }
+      window.addEventListener("scroll", scrollActive);
+
+      /*==================== CHANGE BACKGROUND HEADER ====================*/
+      function scrollHeader() {
+        const nav = document.getElementById("header");
+        // When the scroll is greater than 200 viewport height, add the scroll-header class to the header tag
+        if (this.scrollY >= 200) nav.classList.add("scroll-header");
+        else nav.classList.remove("scroll-header");
+      }
+      window.addEventListener("scroll", scrollHeader);
+function scrollToPosition(position) {
+  window.scrollTo({
+    top: position,
+    behavior: 'smooth' // To enable smooth scrolling, use 'smooth' as the behavior option
+  });
+}
+      /*==================== SHOW SCROLL TOP ====================*/
+      function scrollTop() {
+        const scrollTop = document.getElementById("scroll-top");
+        // When the scroll is higher than 560 viewport height, add the show-scroll class to the a tag with the scroll-top class
+        if (this.scrollY >= 560) scrollTop.classList.add("show-scroll");
+        else scrollTop.classList.remove("show-scroll");
+      }
+      window.addEventListener("scroll", scrollTop);
+
+
+     </script>
+  </body>
+</html>
