@@ -94,15 +94,25 @@
 
   body {
     @apply bg-bg text-text antialiased;
-    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Arabic', system-ui, sans-serif;
+    font-family: 'Inter', 'Almarai', system-ui, sans-serif;
+    font-optical-sizing: auto;
     overflow-x: hidden;
     transition: background-color 0.4s ease, color 0.4s ease;
   }
 
-  /* Arabic copy gets the Arabic face first; Latin runs inside it still fall back
-     to Jakarta because IBM Plex Sans Arabic ships Latin glyphs of its own. */
-  html[lang='ar'] body {
-    font-family: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif;
+  /* One stack serves both scripts. Inter carries no Arabic, so Arabic glyphs
+     fall through to Almarai while Latin resolves from Inter — including Latin
+     words sitting inside an Arabic sentence. Leading with Almarai instead would
+     hand it the Latin too, since it ships Latin glyphs of its own.
+
+     Almarai has 300/400/700/800 only. CSS font matching snaps 500 to 400 and
+     600 to 700 — real weights, not synthesised — so the gaps are safe. */
+
+  /* Almarai sits on a shorter x-height than Inter and carries diacritics above
+     the line, so Arabic needs extra leading to keep rows from colliding. */
+  html[lang='ar'] p,
+  html[lang='ar'] li {
+    line-height: 1.95;
   }
 
   ::selection {

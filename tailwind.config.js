@@ -50,7 +50,7 @@ export default {
         '6xl': ['4rem', { lineHeight: '1.08' }], //       64px
       },
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'IBM Plex Sans Arabic', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'Almarai', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       keyframes: {
