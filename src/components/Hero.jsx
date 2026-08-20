@@ -65,7 +65,7 @@ export default function Hero() {
               {t.profile.status}
             </motion.span>
 
-            <h1 className="mt-6 text-[2.5rem] font-extrabold leading-[1.18] tracking-tight sm:text-5xl lg:text-[3.85rem]">
+            <h1 className="mt-6 text-[2.15rem] font-extrabold leading-[1.18] tracking-tight sm:text-5xl lg:text-[3.6rem]">
               <SplitText
                 as="span"
                 text={t.hero.greeting}
@@ -74,7 +74,7 @@ export default function Hero() {
               />
               <SplitText
                 as="span"
-                text={t.profile.name}
+                text={t.profile.heroName}
                 className="brand-text brand-text-live block"
                 delay={0.32}
               />

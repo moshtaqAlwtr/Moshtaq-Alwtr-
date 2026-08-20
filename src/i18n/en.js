@@ -32,6 +32,7 @@ export default {
   profile: {
     name: 'Moshtaq Alwtr',
     fullName: 'Eng. Moshtaq Kaid Thabit Alwtr',
+    heroName: 'Eng. Moshtaq Alwtr',
     firstName: 'Moshtaq',
     lastName: 'Alwtr',
     role: 'Full Stack Software Engineer',

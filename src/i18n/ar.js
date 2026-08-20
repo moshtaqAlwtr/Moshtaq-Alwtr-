@@ -33,6 +33,9 @@ export default {
     name: 'مشتاق الوتر',
     // Full name as it should appear in the About panel and in structured data.
     fullName: 'المهندس مشتاق قايد ثابت الوتر',
+    // Headline form — carries the title, drops the grandfather's name so the
+    // line still fits the hero at 3.85rem.
+    heroName: 'مشتاق قايد الوتر',
     firstName: 'مشتاق',
     lastName: 'الوتر',
     role: 'مهندس برمجيات Full Stack',
@@ -47,7 +50,7 @@ export default {
   },
 
   hero: {
-    greeting: 'مرحباً، أنا',
+    greeting: 'مرحباً، أنا المهندس',
     tagline:
       'أبني أنظمة ويب وتطبيقات موبايل تحلّ مشاكل تشغيلية حقيقية — من أنظمة ERP والمتاجر الإلكترونية إلى أنظمة التصنيع وتطبيقات التتبّع.',
     viewWork: 'شاهد أعمالي',
