@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { forwardRef, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, Check, Layers, ListChecks, Star, X, getIcon } from './icons'
 import { useI18n } from '../app/providers'
@@ -78,12 +78,18 @@ export default function Projects() {
   )
 }
 
-function ProjectCard({ project, index, wide, onOpen, t, isRTL }) {
+// forwardRef because AnimatePresence mode="popLayout" measures the child's DOM
+// node directly; without it the ref lands on nothing and exit animations break.
+const ProjectCard = forwardRef(function ProjectCard(
+  { project, index, wide, onOpen, t, isRTL },
+  ref
+) {
   const Icon = getIcon(project.icon)
   const copy = t.projects.items[project.id]
 
   return (
     <motion.article
+      ref={ref}
       layout
       initial={{ opacity: 0, y: 22 }}
       animate={{ opacity: 1, y: 0 }}
@@ -168,7 +174,7 @@ function ProjectCard({ project, index, wide, onOpen, t, isRTL }) {
       </div>
     </motion.article>
   )
-}
+})
 
 function ProjectModal({ project, onClose, t }) {
   useEffect(() => {

@@ -1,3 +1,8 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const here = path.dirname(fileURLToPath(import.meta.url))
+
 /** @type {import('tailwindcss').Config} */
 
 // Every colour resolves through a CSS variable holding an "R G B" triple, so a
@@ -6,7 +11,9 @@ const token = (name) => `rgb(var(--${name}) / <alpha-value>)`
 
 export default {
   darkMode: ['selector', '[data-theme="dark"]'],
-  content: ['./index.html', './src/**/*.{js,jsx}'],
+  // Absolute, so content scanning does not depend on the directory the dev
+  // server or build was launched from.
+  content: [path.join(here, 'index.html'), path.join(here, 'src/**/*.{js,jsx}')],
   theme: {
     extend: {
       colors: {
