@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0c0a09" />
-    <link rel="icon" type="image/jpeg" href="./moshtaq.jpg" />
+    <!-- An SVG mark instead of the portrait: the photo is a 1066x1600 86KB
+         JPEG, so browsers were downloading all of it for a 16px icon and
+         squashing a portrait into a square. This is 0.6KB and sharp at any size. -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="./favicon-96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
 
     <title>مشتاق الوتر | مهندس برمجيات — أنظمة ERP ومواقع وتطبيقات</title>
     <meta
@@ -32,6 +38,9 @@
     <meta property="og:description" content="أبني أنظمة ERP ومتاجر إلكترونية وتطبيقات موبايل — React · Laravel · Node.js" />
     <meta property="og:image" content="https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/moshtaq.jpg" />
     <meta property="og:image:alt" content="مشتاق الوتر — مهندس برمجيات" />
+    <meta property="og:image:width" content="1066" />
+    <meta property="og:image:height" content="1600" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="profile:first_name" content="مشتاق" />
     <meta property="profile:last_name" content="الوتر" />
 
