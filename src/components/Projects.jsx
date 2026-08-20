@@ -1,5 +1,5 @@
-import { forwardRef, useEffect, useMemo, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { ArrowUpRight, Check, Layers, ListChecks, Star, X, getIcon } from './icons'
 import { useI18n } from '../app/providers'
 import { projectsMeta } from '../data/structure'
@@ -100,9 +100,15 @@ const ProjectCard = forwardRef(function ProjectCard(
   const Icon = getIcon(project.icon)
   const copy = t.projects.items[project.id]
 
+  // A phone has no hover, so the mockup animations would never fire there.
+  // Entering the viewport stands in for it.
+  const viewRef = useRef(null)
+  const inView = useInView(viewRef, { once: true, margin: '-25% 0px -25% 0px' })
+
   return (
     <motion.article
       ref={ref}
+      data-inview={inView ? 'true' : 'false'}
       layout
       initial={{ opacity: 0, y: 22 }}
       animate={{ opacity: 1, y: 0 }}
@@ -117,6 +123,7 @@ const ProjectCard = forwardRef(function ProjectCard(
         className="card card-hover edge-glow group relative h-full cursor-pointer overflow-hidden rounded-2xl"
         max={5}
       >
+      <span ref={viewRef} aria-hidden className="absolute inset-x-0 top-1/2 h-px" />
       <div className={wide ? 'grid items-stretch md:grid-cols-2' : ''}>
         {/* cover */}
         <motion.div

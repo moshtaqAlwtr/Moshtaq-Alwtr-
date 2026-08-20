@@ -96,6 +96,11 @@ export default {
     },
   },
 
+  statement: {
+    eyebrow: 'How I think',
+    text: 'Writing the code is the easy part. The hard part is understanding how the factory actually runs, how an invoice moves, and where the time leaks — before you write a single line.',
+  },
+
   skills: {
     eyebrow: 'Technical skills',
     title: 'The technologies I work with',

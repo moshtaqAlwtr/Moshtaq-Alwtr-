@@ -405,3 +405,29 @@
     stroke-dashoffset: 0;
   }
 }
+
+/* Phones cannot hover, so the mockups take their cue from entering the
+   viewport instead. Same animations, different trigger. */
+@media (hover: none) {
+  [data-inview='true'] .mock-bar {
+    transform: scaleY(var(--mock-grow, 1.16));
+  }
+  [data-inview='true'] .mock-fill {
+    width: var(--mock-to, 100%);
+  }
+  [data-inview='true'] .mock-gauge {
+    stroke-dashoffset: 26;
+  }
+  [data-inview='true'] .mock-pin {
+    transform: scale(1.45);
+  }
+  [data-inview='true'] .mock-pin-alert {
+    animation: mock-pulse 1.1s ease-in-out infinite;
+  }
+  [data-inview='true'] .mock-sign {
+    stroke-dashoffset: 0;
+  }
+  [data-inview='true'] .mock-tile {
+    transform: translateY(-4px);
+  }
+}
