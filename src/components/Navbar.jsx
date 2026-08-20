@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Code2, Languages, Menu, Moon, Sun, X } from './icons'
 import { useI18n, useTheme } from '../app/providers'
 import { contact, sectionIds } from '../data/structure'
+import CvDownload from './CvDownload'
 
 /**
  * Floating island header.
@@ -113,6 +114,8 @@ export default function Navbar() {
             <Languages size={15} />
             {t.ui.langShort}
           </button>
+
+          <CvDownload variant="icon" />
 
           <button
             onClick={toggleTheme}

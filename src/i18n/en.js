@@ -55,6 +55,17 @@ export default {
     experienceBadge: 'years experience',
   },
 
+  cv: {
+    label: 'Résumé',
+    action: 'Download CV',
+    choose: 'Choose a language',
+    arabic: 'Arabic version',
+    english: 'English version',
+    onePage: '1 page',
+    twoPages: '2 pages',
+    manyPages: 'pages',
+  },
+
   stats: {
     years: 'Years experience',
     projects: 'Projects delivered',

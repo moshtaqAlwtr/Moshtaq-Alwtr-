@@ -13,6 +13,15 @@ export const contact = {
   github: 'https://github.com/moshtaqalwtr',
 }
 
+/**
+ * CV files in public/cv. Sizes are shown in the download menu so nobody on
+ * mobile data starts a 5.7MB download without knowing.
+ */
+export const resumes = [
+  { lang: 'ar', file: 'cv/moshtaq-alwtr-cv-ar.pdf', sizeMB: '5.7', pages: 1 },
+  { lang: 'en', file: 'cv/moshtaq-alwtr-cv-en.pdf', sizeMB: '0.4', pages: 2 },
+]
+
 /** Section ids, in render order. Drives the nav, the rail and the observer. */
 export const sectionIds = [
   'home',

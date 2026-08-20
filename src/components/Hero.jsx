@@ -4,6 +4,7 @@ import { ArrowUpRight, MapPin, MessageCircle } from './icons'
 import { useI18n } from '../app/providers'
 import { contact, statsMeta } from '../data/structure'
 import { CountUp, Typewriter } from './ui'
+import CvDownload from './CvDownload'
 import { Magnetic, SplitText } from './motion/primitives'
 import ConstellationField from './motion/ConstellationField'
 
@@ -113,6 +114,8 @@ export default function Hero() {
                   {t.hero.contactMe}
                 </a>
               </Magnetic>
+
+              <CvDownload />
             </motion.div>
 
             <motion.div
@@ -143,14 +146,17 @@ export default function Hero() {
                 }}
               />
 
+              {/* A 2:3 portrait in a square frame: object-top would cut at the
+                  chest, so the focal point sits a little below the very top. */}
               <div className="card relative h-full w-full overflow-hidden rounded-[2.25rem] p-2">
                 <img
                   src={`${import.meta.env.BASE_URL}moshtaq.jpg`}
                   alt={t.profile.name}
-                  width="400"
-                  height="400"
+                  width="1066"
+                  height="1600"
                   loading="eager"
-                  className="h-full w-full rounded-[1.75rem] object-cover object-top"
+                  className="h-full w-full rounded-[1.75rem] object-cover"
+                  style={{ objectPosition: '50% 18%' }}
                 />
               </div>
 

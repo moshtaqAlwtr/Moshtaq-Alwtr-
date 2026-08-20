@@ -57,6 +57,17 @@ export default {
     experienceBadge: 'سنوات خبرة',
   },
 
+  cv: {
+    label: 'السيرة الذاتية',
+    action: 'تحميل السيرة الذاتية',
+    choose: 'اختر اللغة',
+    arabic: 'النسخة العربية',
+    english: 'النسخة الإنجليزية',
+    onePage: 'صفحة واحدة',
+    twoPages: 'صفحتان',
+    manyPages: 'صفحات',
+  },
+
   stats: {
     years: 'سنوات خبرة',
     projects: 'مشروع منجز',
