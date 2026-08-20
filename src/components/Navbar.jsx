@@ -4,6 +4,13 @@ import { Code2, Languages, Menu, Moon, Sun, X } from './icons'
 import { useI18n, useTheme } from '../app/providers'
 import { contact, sectionIds } from '../data/structure'
 
+/**
+ * Floating island header.
+ *
+ * A centred pill rather than a full-width bar: it detaches from the page, so
+ * the hero reads edge to edge behind it and the nav stays a compact object
+ * instead of a band cutting the design in half.
+ */
 export default function Navbar() {
   const { t, toggleLang } = useI18n()
   const { isDark, toggleTheme } = useTheme()
@@ -22,7 +29,6 @@ export default function Navbar() {
   // Highlight whichever section currently owns the middle of the viewport.
   useEffect(() => {
     const nodes = sectionIds.map((id) => document.getElementById(id)).filter(Boolean)
-
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -32,7 +38,6 @@ export default function Navbar() {
       },
       { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] }
     )
-
     nodes.forEach((n) => observer.observe(n))
     return () => observer.disconnect()
   }, [])
@@ -51,24 +56,26 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'border-b border-border bg-bg/80 backdrop-blur-xl'
-            : 'border-b border-transparent'
-        }`}
+      <motion.header
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed inset-x-0 top-3 z-50 flex justify-center px-4 sm:top-4"
       >
-        <nav className="container-x flex h-[68px] items-center justify-between gap-4">
+        <nav
+          className={`flex items-center gap-1 rounded-2xl border p-1.5 transition-all duration-300 ${
+            scrolled
+              ? 'border-border bg-surface/90 shadow-lg backdrop-blur-xl'
+              : 'border-border/70 bg-surface/70 backdrop-blur-xl'
+          }`}
+        >
           <button
             onClick={() => go('home')}
-            className="group flex items-center gap-2.5 text-[16.5px] font-extrabold tracking-tight"
+            aria-label={t.profile.name}
+            data-cursor="link"
+            className="brand-fill flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-transform hover:scale-105"
           >
-            <span className="brand-fill flex h-9 w-9 items-center justify-center rounded-xl transition-transform group-hover:scale-110">
-              <Code2 size={17} strokeWidth={2.6} />
-            </span>
-            <span className="hidden sm:inline">
-              {t.profile.firstName} <span className="brand-text">{t.profile.lastName}</span>
-            </span>
+            <Code2 size={16} strokeWidth={2.6} />
           </button>
 
           <ul className="hidden items-center gap-0.5 lg:flex">
@@ -76,7 +83,8 @@ export default function Navbar() {
               <li key={id}>
                 <button
                   onClick={() => go(id)}
-                  className={`relative rounded-lg px-3.5 py-2 text-[14.5px] font-semibold transition-colors ${
+                  data-cursor="link"
+                  className={`relative rounded-xl px-3 py-2 text-[14px] font-semibold transition-colors ${
                     active === id ? 'text-text' : 'text-text-3 hover:text-text'
                   }`}
                 >
@@ -84,7 +92,7 @@ export default function Navbar() {
                   {active === id && (
                     <motion.span
                       layoutId="nav-pill"
-                      className="absolute inset-0 -z-10 rounded-lg bg-brand/10 ring-1 ring-brand/20"
+                      className="absolute inset-0 -z-10 rounded-xl bg-brand/12 ring-1 ring-brand/25"
                       transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                     />
                   )}
@@ -93,57 +101,61 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggleLang}
-              aria-label={t.ui.switchLang}
-              title={t.ui.switchLang}
-              className="icon-btn h-9 gap-1.5 px-2.5 text-xs font-bold" data-cursor="link"
-            >
-              <Languages size={15} />
-              {t.ui.langShort}
-            </button>
+          <span className="mx-1 hidden h-6 w-px bg-border lg:block" aria-hidden />
 
-            <button
-              onClick={toggleTheme}
-              aria-label={isDark ? t.ui.toLight : t.ui.toDark}
-              title={isDark ? t.ui.toLight : t.ui.toDark}
-              className="icon-btn h-9 w-9" data-cursor="link"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={isDark ? 'moon' : 'sun'}
-                  initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
-                  animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                  exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
-                  transition={{ duration: 0.22 }}
-                  className="flex"
-                >
-                  {isDark ? <Moon size={16} /> : <Sun size={16} />}
-                </motion.span>
-              </AnimatePresence>
-            </button>
+          <button
+            onClick={toggleLang}
+            aria-label={t.ui.switchLang}
+            title={t.ui.switchLang}
+            data-cursor="link"
+            className="flex h-9 items-center gap-1.5 rounded-xl px-2.5 text-xs font-bold text-text-3 transition-colors hover:bg-brand/10 hover:text-brand"
+          >
+            <Languages size={15} />
+            {t.ui.langShort}
+          </button>
 
-            <a
-              href={`https://wa.me/${contact.whatsapp}`}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-primary hidden !px-5 !py-2.5 !text-[14.5px] sm:inline-flex"
-            >
-              {t.nav.cta}
-            </a>
+          <button
+            onClick={toggleTheme}
+            aria-label={isDark ? t.ui.toLight : t.ui.toDark}
+            title={isDark ? t.ui.toLight : t.ui.toDark}
+            data-cursor="link"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-text-3 transition-colors hover:bg-brand/10 hover:text-brand"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={isDark ? 'moon' : 'sun'}
+                initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
+                transition={{ duration: 0.22 }}
+                className="flex"
+              >
+                {isDark ? <Moon size={16} /> : <Sun size={16} />}
+              </motion.span>
+            </AnimatePresence>
+          </button>
 
-            <button
-              onClick={() => setOpen((v) => !v)}
-              aria-label={t.ui.menu}
-              aria-expanded={open}
-              className="icon-btn h-9 w-9 lg:hidden" data-cursor="link"
-            >
-              {open ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          </div>
+          <a
+            href={`https://wa.me/${contact.whatsapp}`}
+            target="_blank"
+            rel="noreferrer"
+            data-cursor="link"
+            className="brand-fill ms-1 hidden h-9 items-center rounded-xl px-4 text-[13px] font-bold transition-transform hover:scale-[1.04] sm:flex"
+          >
+            {t.nav.cta}
+          </a>
+
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label={t.ui.menu}
+            aria-expanded={open}
+            data-cursor="link"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-text-3 transition-colors hover:bg-brand/10 hover:text-brand lg:hidden"
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </nav>
-      </header>
+      </motion.header>
 
       <AnimatePresence>
         {open && (

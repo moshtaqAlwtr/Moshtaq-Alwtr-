@@ -31,6 +31,8 @@ export default {
 
   profile: {
     name: 'مشتاق الوتر',
+    // Full name as it should appear in the About panel and in structured data.
+    fullName: 'المهندس مشتاق قايد ثابت الوتر',
     firstName: 'مشتاق',
     lastName: 'الوتر',
     role: 'مهندس برمجيات Full Stack',

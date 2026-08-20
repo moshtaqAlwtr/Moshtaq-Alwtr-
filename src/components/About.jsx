@@ -8,7 +8,7 @@ export default function About() {
   const { t } = useI18n()
 
   const info = [
-    { icon: 'User', label: t.about.info.name, value: t.profile.name },
+    { icon: 'User', label: t.about.info.name, value: t.profile.fullName },
     { icon: 'Briefcase', label: t.about.info.role, value: t.about.info.roleValue },
     { icon: 'MapPin', label: t.about.info.location, value: t.profile.location },
     {
@@ -51,7 +51,7 @@ export default function About() {
                       <Icon size={15} className="shrink-0 text-brand" />
                       <dt className="text-xs text-text-4">{row.label}</dt>
                       <dd
-                        className={`truncate text-sm font-semibold ${
+                        className={`text-sm font-semibold ${
                           row.highlight ? 'text-brand' : 'text-text-2'
                         }`}
                       >

@@ -50,7 +50,7 @@ export default function Hero() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
   return (
-    <section id="home" ref={sectionRef} className="relative overflow-hidden pt-[68px]">
+    <section id="home" ref={sectionRef} className="relative overflow-hidden pt-[92px] sm:pt-[104px]">
       <ConstellationField />
 
       <div className="container-x relative py-12 sm:py-16 lg:py-20">
