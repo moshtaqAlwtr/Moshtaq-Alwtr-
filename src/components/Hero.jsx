@@ -2,11 +2,10 @@ import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { ArrowUpRight, MapPin, MessageCircle } from './icons'
 import { useI18n } from '../app/providers'
-import { contact, statsMeta, techMarquee } from '../data/structure'
+import { contact, statsMeta } from '../data/structure'
 import { CountUp, Typewriter } from './ui'
 import { Magnetic, SplitText } from './motion/primitives'
 import ConstellationField from './motion/ConstellationField'
-import VelocityMarquee from './motion/VelocityMarquee'
 
 const rise = (delay) => ({
   initial: { opacity: 0, y: 20 },
@@ -207,10 +206,6 @@ export default function Hero() {
         </motion.dl>
       </div>
 
-      <VelocityMarquee
-        items={techMarquee}
-        className="border-y border-border bg-bg-soft py-3.5"
-      />
     </section>
   )
 }

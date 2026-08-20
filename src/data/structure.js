@@ -160,18 +160,3 @@ export const whyMeMeta = [
 ]
 
 export const processMeta = ['discover', 'proposal', 'design', 'data', 'build', 'test', 'launch']
-
-export const techMarquee = [
-  'React',
-  'Laravel',
-  'Node.js',
-  'TypeScript',
-  'MySQL',
-  'React Native',
-  'REST API',
-  'TailwindCSS',
-  'Firebase',
-  'PostgreSQL',
-  'Redis',
-  'Git',
-]
