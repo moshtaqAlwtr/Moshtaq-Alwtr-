@@ -103,7 +103,7 @@ export default function Contact() {
                       href={`https://wa.me/${contact.whatsapp}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="btn-primary"
+                      className="btn-primary" data-cursor="link"
                     >
                       <MessageCircle size={17} />
                       {t.contact.panel.whatsappCta}
@@ -115,7 +115,7 @@ export default function Contact() {
                       href={`mailto:${contact.email}?subject=${encodeURIComponent(
                         t.contact.panel.emailSubject
                       )}`}
-                      className="btn-ghost"
+                      className="btn-ghost" data-cursor="link"
                     >
                       <Send size={16} className="text-brand" />
                       {t.contact.panel.emailCta}
@@ -192,7 +192,7 @@ function ChannelCard({ channel, t }) {
         <button
           onClick={onCopy}
           aria-label={`${t.ui.copy} — ${t.contact.channels[id]}`}
-          className="icon-btn h-8 w-8 shrink-0"
+          className="icon-btn h-8 w-8 shrink-0" data-cursor="link"
         >
           {copied ? <Check size={14} className="text-brand" /> : <Copy size={14} />}
         </button>

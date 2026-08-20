@@ -122,7 +122,7 @@ export function FloatingActions() {
             exit={{ opacity: 0, scale: 0.7 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             aria-label={t.ui.backToTop}
-            className="icon-btn h-12 w-12 bg-surface"
+            className="icon-btn h-12 w-12 bg-surface" data-cursor="link"
           >
             <ArrowUp size={20} />
           </motion.button>

@@ -96,7 +96,7 @@ export default function Hero() {
 
             <motion.div {...rise(0.66)} className="mt-8 flex flex-wrap items-center gap-3">
               <Magnetic strength={0.4}>
-                <button onClick={() => go('projects')} className="btn-primary">
+                <button onClick={() => go('projects')} className="btn-primary" data-cursor="link">
                   {t.hero.viewWork}
                   <ArrowUpRight size={17} className={isRTL ? '-scale-x-100' : ''} />
                 </button>
@@ -107,7 +107,7 @@ export default function Hero() {
                   href={`https://wa.me/${contact.whatsapp}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-ghost"
+                  className="btn-ghost" data-cursor="link"
                 >
                   <MessageCircle size={17} className="text-brand" />
                   {t.hero.contactMe}

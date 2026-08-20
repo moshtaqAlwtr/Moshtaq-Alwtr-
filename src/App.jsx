@@ -10,6 +10,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import { FloatingActions, ScrollProgress } from './components/FloatingUI'
 import { Ambient } from './components/ui'
+import CursorFX from './components/motion/CursorFX'
 
 function Site() {
   const { lang } = useI18n()
@@ -19,6 +20,7 @@ function Site() {
     // instead of leaving half-animated nodes from the previous locale.
     <div key={lang}>
       <Ambient />
+      <CursorFX />
       <ScrollProgress />
       <Navbar />
 

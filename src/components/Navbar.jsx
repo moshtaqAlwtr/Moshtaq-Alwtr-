@@ -98,7 +98,7 @@ export default function Navbar() {
               onClick={toggleLang}
               aria-label={t.ui.switchLang}
               title={t.ui.switchLang}
-              className="icon-btn h-9 gap-1.5 px-2.5 text-xs font-bold"
+              className="icon-btn h-9 gap-1.5 px-2.5 text-xs font-bold" data-cursor="link"
             >
               <Languages size={15} />
               {t.ui.langShort}
@@ -108,7 +108,7 @@ export default function Navbar() {
               onClick={toggleTheme}
               aria-label={isDark ? t.ui.toLight : t.ui.toDark}
               title={isDark ? t.ui.toLight : t.ui.toDark}
-              className="icon-btn h-9 w-9"
+              className="icon-btn h-9 w-9" data-cursor="link"
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
@@ -137,7 +137,7 @@ export default function Navbar() {
               onClick={() => setOpen((v) => !v)}
               aria-label={t.ui.menu}
               aria-expanded={open}
-              className="icon-btn h-9 w-9 lg:hidden"
+              className="icon-btn h-9 w-9 lg:hidden" data-cursor="link"
             >
               {open ? <X size={18} /> : <Menu size={18} />}
             </button>

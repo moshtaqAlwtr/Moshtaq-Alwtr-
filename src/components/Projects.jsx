@@ -110,6 +110,8 @@ const ProjectCard = forwardRef(function ProjectCard(
       transition={{ duration: 0.4, delay: index * 0.05 }}
       onClick={onOpen}
       className={wide ? 'md:col-span-2' : ''}
+      data-cursor="card"
+      data-cursor-label={t.projects.labels.caseStudy}
     >
       <Tilt
         className="card card-hover edge-glow group relative h-full cursor-pointer overflow-hidden rounded-2xl"

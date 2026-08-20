@@ -41,7 +41,7 @@ export default function Footer() {
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel="noreferrer"
                   aria-label={label}
-                  className="icon-btn h-9 w-9"
+                  className="icon-btn h-9 w-9" data-cursor="link"
                 >
                   <Icon size={16} />
                 </a>

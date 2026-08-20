@@ -43,7 +43,7 @@ export default function Skills() {
                   </div>
 
                   <ul className="space-y-3.5">
-                    {group.skills.map((skill) => (
+                    {group.skills.map((skill, si) => (
                       <li
                         key={skill.name}
                         className="flex items-center justify-between gap-4"
@@ -51,7 +51,11 @@ export default function Skills() {
                         <span className="text-sm font-medium text-text-2" dir="ltr">
                           {skill.name}
                         </span>
-                        <LevelMeter level={skill.level} tone={group.tone} />
+                        <LevelMeter
+                          level={skill.level}
+                          tone={group.tone}
+                          delay={si * 0.09}
+                        />
                       </li>
                     ))}
                   </ul>

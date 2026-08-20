@@ -152,17 +152,31 @@ const TONE_BG = {
   'brand-3': 'bg-brand-3',
 }
 
-export function LevelMeter({ level, max = 5, tone = 'brand' }) {
+export function LevelMeter({ level, max = 5, tone = 'brand', delay = 0 }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-40px' })
+
   return (
-    <span className="flex items-center gap-1" aria-label={`${level}/${max}`}>
-      {Array.from({ length: max }, (_, i) => (
-        <span
-          key={i}
-          className={`h-1.5 rounded-full transition-all duration-500 ${
-            i < level ? `w-4 ${TONE_BG[tone] ?? TONE_BG.brand}` : 'w-2 bg-border-strong'
-          }`}
-        />
-      ))}
+    <span ref={ref} className="flex items-center gap-1" aria-label={`${level}/${max}`}>
+      {Array.from({ length: max }, (_, i) => {
+        const filled = i < level
+        return (
+          <motion.span
+            key={i}
+            className={`h-1.5 rounded-full ${
+              filled ? TONE_BG[tone] ?? TONE_BG.brand : 'bg-border-strong'
+            }`}
+            initial={{ width: 8, opacity: 0.35 }}
+            animate={inView ? { width: filled ? 16 : 8, opacity: filled ? 1 : 0.6 } : {}}
+            // segments light left to right, so the meter reads as filling up
+            transition={{
+              duration: 0.4,
+              delay: delay + i * 0.07,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          />
+        )
+      })}
     </span>
   )
 }

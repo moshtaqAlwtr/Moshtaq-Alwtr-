@@ -104,9 +104,12 @@ function Dashboard({ hue }) {
             {bars.map((h, i) => (
               <span
                 key={i}
-                className="flex-1 rounded-t-sm"
+                className="mock-bar flex-1 rounded-t-sm"
                 style={{
                   height: `${h}%`,
+                  // taller bars have less headroom before they clip the panel
+                  '--mock-grow': 1 + (100 - h) / 260,
+                  transitionDelay: `${i * 45}ms`,
                   background: `linear-gradient(180deg, ${tint(hue, 65, 58, 0.75)}, ${tint(hue, 65, 58, 0.2)})`,
                 }}
               />
@@ -144,6 +147,7 @@ function FactoryLine({ hue }) {
               stroke={tint(hue, 70, 55, 0.9)}
               strokeDasharray="251"
               strokeDashoffset="63"
+              className="mock-gauge"
             />
           </svg>
           <span
@@ -167,9 +171,11 @@ function FactoryLine({ hue }) {
                 style={{ background: tint(hue, 40, 55, 0.14) }}
               >
                 <span
-                  className="block h-full rounded-full"
+                  className="mock-fill block h-full rounded-full"
                   style={{
                     width: `${w}%`,
+                    '--mock-to': `${Math.min(w + 12, 100)}%`,
+                    transitionDelay: `${i * 70}ms`,
                     background: `linear-gradient(90deg, ${tint(hue, 70, 58, 0.85)}, ${tint(hue, 70, 58, 0.4)})`,
                   }}
                 />
@@ -227,10 +233,13 @@ function MapTracking({ hue }) {
         {pins.map((p, i) => (
           <span
             key={i}
-            className="absolute h-2.5 w-2.5 rounded-full ring-4"
+            className={`mock-pin absolute h-2.5 w-2.5 rounded-full ring-4 ${
+              i === 4 ? 'mock-pin-alert' : ''
+            }`}
             style={{
               left: `${p.x}%`,
               top: `${p.y}%`,
+              transitionDelay: `${i * 60}ms`,
               background: tint(hue, 70, 52, 1),
               // the outlier pin flags the geofence breach the app alerts on
               ...(i === 4
@@ -281,8 +290,12 @@ function Subscriptions({ hue }) {
             {[0, 1].map((i) => (
               <div
                 key={i}
-                className="rounded-lg p-2"
-                style={{ background: tint(hue, 50, 55, 0.09), border: `1px solid ${line}` }}
+                className="mock-tile rounded-lg p-2"
+                style={{
+                  background: tint(hue, 50, 55, 0.09),
+                  border: `1px solid ${line}`,
+                  transitionDelay: `${i * 70}ms`,
+                }}
               >
                 <Bar w="55%" h={4} hue={hue} o={0.3} />
                 <div className="mt-1.5">
@@ -329,8 +342,12 @@ function Store({ hue }) {
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-lg"
-              style={{ background: tint(hue, 50, 55, 0.09), border: `1px solid ${line}` }}
+              className="mock-tile overflow-hidden rounded-lg"
+              style={{
+                background: tint(hue, 50, 55, 0.09),
+                border: `1px solid ${line}`,
+                transitionDelay: `${i * 50}ms`,
+              }}
             >
               <span
                 className="block h-8"
@@ -386,6 +403,7 @@ function Contract({ hue }) {
                     stroke={tint(hue, 70, 55, 0.85)}
                     strokeWidth="1.6"
                     strokeLinecap="round"
+                    className={`mock-sign ${i === 1 ? 'mock-sign-2' : ''}`}
                   />
                 </svg>
                 <span
