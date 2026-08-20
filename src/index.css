@@ -2,16 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --page-bg: #020617;
-  --section-bg: #0f172a;
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --card-bg-hover: rgba(255, 255, 255, 0.06);
-  --card-border: rgba(255, 255, 255, 0.06);
-  --card-border-hover: rgba(255, 255, 255, 0.12);
-  --accent: #10b981;
-  --accent-2: #06b6d4;
-  --accent-3: #8b5cf6;
+/*
+  Design tokens.
+
+  Every colour is stored as a bare "R G B" triple so Tailwind can apply opacity
+  modifiers to it (see tailwind.config.js -> rgb(var(--x) / <alpha-value>)).
+  The two themes redefine the same token names, so components never branch on
+  the active theme.
+*/
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: 8 8 12;
+  --bg-soft: 13 13 19;
+  --surface: 20 20 28;
+  --surface-2: 27 27 37;
+  --border: 38 38 49;
+  --border-strong: 55 55 70;
+
+  --text: 244 244 247;
+  --text-2: 184 184 198;
+  --text-3: 130 130 146;
+  --text-4: 92 92 106;
+
+  --brand: 139 124 255;
+  --brand-2: 77 163 255;
+  --brand-3: 255 180 68;
+  --brand-contrast: 10 10 16;
+
+  --ring: 139 124 255;
+  --shadow-color: 0 0 0;
+  --shadow-strength: 0.55;
+
+  --glass: 255 255 255;
+  --glass-alpha: 0.035;
+  --glass-alpha-hover: 0.065;
+
+  --grid-alpha: 0.05;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: 252 252 253;
+  --bg-soft: 244 244 248;
+  --surface: 255 255 255;
+  --surface-2: 248 248 251;
+  --border: 228 228 236;
+  --border-strong: 208 208 220;
+
+  --text: 16 16 24;
+  --text-2: 71 71 88;
+  --text-3: 110 110 128;
+  --text-4: 150 150 168;
+
+  --brand: 105 84 226;
+  --brand-2: 32 118 214;
+  --brand-3: 199 122 0;
+  --brand-contrast: 255 255 255;
+
+  --ring: 105 84 226;
+  --shadow-color: 24 24 40;
+  --shadow-strength: 0.09;
+
+  --glass: 255 255 255;
+  --glass-alpha: 1;
+  --glass-alpha-hover: 1;
+
+  /* Dark text on a light ground reads far heavier at the same alpha. */
+  --grid-alpha: 0.022;
 }
 
 @layer base {
@@ -21,31 +82,47 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
+    scroll-padding-top: 96px;
   }
 
   body {
-    @apply bg-page text-ink font-sans antialiased;
+    @apply bg-bg text-text antialiased;
+    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Arabic', system-ui, sans-serif;
     overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  /* Arabic copy gets the Arabic face first; Latin runs inside it still fall back
+     to Jakarta because IBM Plex Sans Arabic ships Latin glyphs of its own. */
+  html[lang='ar'] body {
+    font-family: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif;
   }
 
   ::selection {
-    background: rgba(16, 185, 129, 0.3);
-    color: #f8fafc;
+    background: rgb(var(--brand) / 0.25);
+    color: rgb(var(--text));
   }
 
   ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #020617;
+    background: rgb(var(--bg));
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(16, 185, 129, 0.3);
+    background: rgb(var(--border-strong));
     border-radius: 99px;
+    border: 2px solid rgb(var(--bg));
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(16, 185, 129, 0.5);
+    background: rgb(var(--brand) / 0.6);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 }
 
@@ -54,49 +131,115 @@
     @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
 
-  .glass {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(12px);
+  /* Card surface. Dark mode leans on translucency; light mode on a solid
+     surface plus a real shadow, because glass reads as muddy on white. */
+  .card {
+    background: rgb(var(--glass) / var(--glass-alpha));
+    border: 1px solid rgb(var(--border));
     -webkit-backdrop-filter: blur(12px);
-  }
-
-  .glass-hover {
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 2px rgb(var(--shadow-color) / calc(var(--shadow-strength) * 0.5));
     transition: background-color 0.35s ease, border-color 0.35s ease,
       transform 0.35s ease, box-shadow 0.35s ease;
   }
-  .glass-hover:hover {
-    background: var(--card-bg-hover);
-    border-color: var(--card-border-hover);
+
+  .card-hover:hover {
+    background: rgb(var(--glass) / var(--glass-alpha-hover));
+    border-color: rgb(var(--border-strong));
     transform: translateY(-4px);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    box-shadow: 0 14px 40px rgb(var(--shadow-color) / var(--shadow-strength));
   }
 
-  .grad-text {
+  .brand-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #10b981, #06b6d4 55%, #8b5cf6);
+    background-image: linear-gradient(
+      120deg,
+      rgb(var(--brand)),
+      rgb(var(--brand-2)) 70%
+    );
+  }
+
+  .brand-fill {
+    background-image: linear-gradient(120deg, rgb(var(--brand)), rgb(var(--brand-2)));
+    color: rgb(var(--brand-contrast));
   }
 
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium;
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+    background: rgb(var(--brand) / 0.1);
+    color: rgb(var(--brand));
+    border: 1px solid rgb(var(--brand) / 0.22);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-bold transition-transform;
+    background-image: linear-gradient(120deg, rgb(var(--brand)), rgb(var(--brand-2)));
+    color: rgb(var(--brand-contrast));
+    box-shadow: 0 8px 24px rgb(var(--brand) / 0.28);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-bold transition-all;
+    background: rgb(var(--glass) / var(--glass-alpha));
+    border: 1px solid rgb(var(--border));
+    color: rgb(var(--text));
+  }
+  .btn-ghost:hover {
+    border-color: rgb(var(--border-strong));
+    transform: translateY(-2px);
+  }
+
+  .icon-btn {
+    @apply inline-flex items-center justify-center rounded-xl transition-colors;
+    background: rgb(var(--glass) / var(--glass-alpha));
+    border: 1px solid rgb(var(--border));
+    color: rgb(var(--text-3));
+  }
+  .icon-btn:hover {
+    color: rgb(var(--brand));
+    border-color: rgb(var(--brand) / 0.35);
+  }
+
+  /* Gradient hairline that fades in on hover, used on feature cards. */
+  .edge-glow {
+    position: relative;
+  }
+  .edge-glow::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgb(var(--brand) / 0.55),
+      rgb(var(--brand-2) / 0.2),
+      transparent 65%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .edge-glow:hover::before {
+    opacity: 1;
   }
 }
 
-/* Decorative background layers */
-.grid-bg {
-  background-image: linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-}
+/* ---------- Decorative background ---------- */
 
-.noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+.grid-bg {
+  background-image: linear-gradient(rgb(var(--text) / var(--grid-alpha)) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--text) / var(--grid-alpha)) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, #000 35%, transparent 100%);
 }
 
 .orb {
@@ -106,25 +249,10 @@
   pointer-events: none;
 }
 
-/* Conic border for featured cards */
-.ring-glow {
-  position: relative;
-}
-.ring-glow::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.5), rgba(6, 182, 212, 0.15), transparent 60%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.ring-glow:hover::before {
-  opacity: 1;
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -135,11 +263,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-@keyframes ring-spin {
-  to {
-    transform: rotate(360deg);
   }
 }

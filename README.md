@@ -1,12 +1,14 @@
 # موقع مشتاق الوتر الشخصي
 
-بورتفوليو شخصي بواجهة React وتصميم ليلي (Dark Theme) ودعم كامل للغة العربية واتجاه RTL.
+بورتفوليو شخصي بواجهة React، بوضعين (ليلي وساطع) ولغتين (عربي/إنجليزي) مع دعم كامل لاتجاه RTL و LTR.
+
+**Personal portfolio — React, dual theme (dark/light), bilingual (Arabic/English) with full RTL & LTR support.**
 
 ## التقنيات
 
 - **React 18** + **Vite 5**
-- **TailwindCSS 3** — نظام تصميم مبني على متغيّرات CSS
-- **Framer Motion** — حركات الظهور والانتقالات
+- **TailwindCSS 3** — نظام تصميم قائم على متغيّرات CSS
+- **Framer Motion** — الحركات والانتقالات
 - **lucide-react** — الأيقونات
 
 ## التشغيل محلياً
@@ -16,101 +18,160 @@ npm install
 npm run dev
 ```
 
-ثم افتح الرابط الذي يظهر في الطرفية (عادةً `http://localhost:5173/Moshtaq-Alwtr-/`).
-
-## البناء للإنتاج
+## البناء
 
 ```bash
 npm run build      # ينتج مجلد dist/
-npm run preview    # معاينة نسخة الإنتاج محلياً
+npm run preview    # معاينة نسخة الإنتاج
 ```
 
 ## النشر على GitHub Pages
 
-المشروع مهيّأ للنشر على المستودع `Moshtaq-Alwtr-`، أي على الرابط:
+المشروع مهيّأ للمستودع `Moshtaq-Alwtr-`:
 `https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/`
 
-### الطريقة الأولى — أمر واحد
-
 ```bash
-npm run deploy
+npm run deploy     # يبني ويرفع dist إلى فرع gh-pages
 ```
 
-يبني المشروع ويرفع مجلد `dist` إلى فرع `gh-pages`.
+أو نشر تلقائي عبر `.github/workflows/deploy.yml` مع كل `push`
+(فعّله من **Settings → Pages → Source → GitHub Actions**).
 
-### الطريقة الثانية — نشر تلقائي
-
-الملف `.github/workflows/deploy.yml` ينشر الموقع تلقائياً مع كل `push` على الفرع الرئيسي.
-لتفعيله: من إعدادات المستودع اذهب إلى **Settings → Pages → Source** واختر **GitHub Actions**.
-
-### النشر على نطاق خاص (مثل `moshtaq.dev`)
-
-المسار الأساسي (`base`) مضبوط على `/Moshtaq-Alwtr-/`. عند النشر على جذر نطاق خاص:
+للنشر على نطاق خاص (جذر الدومين):
 
 ```bash
 DEPLOY_TARGET=root npm run build
 ```
 
-## تعديل المحتوى
+---
 
-كل نصوص الموقع — البيانات الشخصية، المهارات، المشاريع، الخدمات، خطوات العمل —
-موجودة في ملف واحد:
+## نظام التصميم
+
+### الوضع الليلي والساطع
+
+كل الألوان معرّفة كمتغيّرات CSS في [src/index.css](src/index.css) على شكل ثلاثيات `R G B`،
+ما يسمح لـ Tailwind بتطبيق الشفافية عليها (`bg-brand/10`). الثيمان يعيدان تعريف
+**نفس أسماء المتغيّرات**، فلا يحتاج أي مكوّن أن يعرف أي وضع مفعّل:
+
+```css
+:root, [data-theme='dark'] { --bg: 8 8 12;      --brand: 139 124 255; ... }
+[data-theme='light']       { --bg: 252 252 253; --brand: 105 84 226;  ... }
+```
+
+| الرمز | ليلي | ساطع |
+|---|---|---|
+| `--bg` | `#08080c` | `#fcfcfd` |
+| `--surface` | `#14141c` | `#ffffff` |
+| `--brand` | `#8b7cff` | `#6954e2` |
+| `--brand-2` | `#4da3ff` | `#2076d6` |
+| `--brand-3` | `#ffb444` | `#c77a00` |
+
+يُحسم الوضع في سكربت صغير داخل `<head>` **قبل أول رسم للصفحة**، فلا يحدث وميض
+أبيض عند فتح الموقع في الوضع الليلي. الاختيار يُحفظ في `localStorage`
+(`mw-theme`)، وأول زيارة تتبع إعداد النظام.
+
+### الخطوط
+
+| الاستخدام | الخط |
+|---|---|
+| العربية | **IBM Plex Sans Arabic** |
+| الإنجليزية | **Plus Jakarta Sans** |
+| الكود والأرقام | **JetBrains Mono** |
+
+مرتّبة في stack واحد بحيث تُرسم الحروف اللاتينية من Jakarta والعربية من IBM Plex
+تلقائياً، مع عكس الأولوية عندما تكون لغة الصفحة عربية.
+
+---
+
+## نظام اللغتين
+
+الفصل بين **البنية** و**النص** يمنع اختلاف الملفين مع الوقت:
 
 ```
-src/data/content.js
+src/data/structure.js   ← المعرّفات، الأيقونات، الألوان، مستويات المهارات، التقنيات
+src/i18n/ar.js          ← النص العربي فقط
+src/i18n/en.js          ← النص الإنجليزي فقط
 ```
 
-لإضافة مشروع جديد، أضف كائناً جديداً إلى مصفوفة `projects`:
+المكوّنات تقرأ الاثنين معاً عبر `useI18n()`:
+
+```jsx
+const { t, lang, toggleLang, isRTL } = useI18n()
+<h2>{t.projects.title}</h2>
+```
+
+تبديل اللغة يغيّر `lang` و `dir` على `<html>`، ويحدّث `<title>` و `meta description`،
+ويُحفظ في `localStorage` (`mw-lang`). الزيارة الأولى تفتح **بالعربية** دائماً
+(الجمهور المستهدف عربي حتى لو كان جهازه بلغة إنجليزية)، والإنجليزية بضغطة واحدة.
+
+### إضافة نص جديد
+
+أضِف المفتاح في **كلا** الملفين `ar.js` و `en.js` بنفس المسار، ثم استخدمه عبر `t`.
+
+### إضافة مشروع جديد
+
+1. أضِف البنية في `src/data/structure.js` ضمن `projectsMeta`:
 
 ```js
 {
-  id: 'my-project',           // معرّف فريد
-  title: 'اسم المشروع',
-  subtitle: 'وصف قصير',
-  category: 'أنظمة',           // يظهر تلقائياً كفلتر جديد
-  featured: true,             // شارة "مميّز"
-  accent: '#10b981',          // لون البطاقة
-  icon: 'Receipt',            // اسم أيقونة من src/components/icons.js
-  summary: '...',
-  problem: '...',
-  solution: '...',
-  features: ['...'],
+  id: 'myProject',        // المفتاح الرابط بين البنية والنص
+  icon: 'Receipt',        // اسم أيقونة من src/components/icons.js
+  category: 'systems',    // يجب أن يوجد له مفتاح في projects.filters
+  featured: true,
+  visual: 'dashboard',    // dashboard | factory | map | subscriptions | store
+  hue: 258,               // درجة لون البطاقة (0-360)
   stack: ['Laravel', 'React'],
 }
 ```
 
-> ملاحظة: الأيقونات تُستورد بأسمائها صراحةً في `src/components/icons.js` بدلاً من
-> استيراد مكتبة lucide بالكامل — هذا يقلّص حجم الحزمة من ‎1085KB إلى ‎325KB.
-> عند استخدام أيقونة جديدة، أضِفها إلى ذلك الملف أولاً.
+2. أضِف النص في `ar.js` و `en.js` تحت `projects.items.myProject`
+   (`title`, `subtitle`, `summary`, `problem`, `solution`, `features`).
+
+> **ملاحظة:** الأيقونات تُستورد بأسمائها صراحةً في `src/components/icons.js`
+> بدل استيراد lucide بالكامل — هذا يقلّص الحزمة من ‎1085KB إلى ‎~350KB.
+> عند استخدام أيقونة جديدة أضِفها إلى ذلك الملف أولاً.
+
+---
 
 ## بنية المشروع
 
 ```
 src/
-├── data/content.js          # كل محتوى الموقع
+├── app/providers.jsx        # سياق الثيم واللغة (ThemeProvider + I18nProvider)
+├── data/structure.js        # البنية غير القابلة للترجمة
+├── i18n/
+│   ├── ar.js                # النصوص العربية
+│   └── en.js                # النصوص الإنجليزية
 ├── components/
-│   ├── ui.jsx               # مكوّنات مشتركة (Reveal, SectionTitle, CountUp, Typewriter)
+│   ├── ui.jsx               # Reveal · SectionHeading · CountUp · Typewriter · LevelMeter
 │   ├── icons.js             # سجل الأيقونات المستخدمة
-│   ├── Navbar.jsx           # شريط علوي بتتبّع القسم النشط
+│   ├── ProjectVisual.jsx    # مخططات UI مجرّدة لبطاقات المشاريع
+│   ├── Navbar.jsx           # شريط علوي + مبدّل اللغة والوضع
 │   ├── Hero.jsx             # الواجهة الرئيسية
 │   ├── About.jsx            # نبذة + لماذا تختارني
-│   ├── Skills.jsx           # المهارات بأشرطة تقدّم
-│   ├── Projects.jsx         # المشاريع + فلاتر + نافذة التفاصيل
+│   ├── Skills.jsx           # المهارات بمؤشّر مستوى مقسّم
+│   ├── Projects.jsx         # المشاريع + فلاتر + دراسة حالة
 │   ├── Services.jsx         # الخدمات
 │   ├── Process.jsx          # خطوات العمل السبع
 │   ├── Contact.jsx          # قنوات التواصل
 │   ├── Footer.jsx           # التذييل
-│   └── FloatingUI.jsx       # شريط تقدّم القراءة + أزرار عائمة
+│   └── FloatingUI.jsx       # شريط التقدّم + شريط الأقسام الجانبي + أزرار عائمة
 ├── App.jsx
-└── index.css                # نظام التصميم والمتغيّرات
+└── index.css                # متغيّرات الثيمين والفئات المشتركة
 ```
 
-## لوحة الألوان
+### مخططات المشاريع (`ProjectVisual`)
 
-| المتغيّر | القيمة | الاستخدام |
-|---|---|---|
-| `--page-bg` | `#020617` | خلفية الصفحة |
-| `--section-bg` | `#0f172a` | خلفية الأقسام المظللة |
-| `--accent` | `#10b981` | اللون الأساسي |
-| `--accent-2` | `#06b6d4` | اللون الثانوي |
-| `--accent-3` | `#8b5cf6` | لون التمييز |
+بطاقات المشاريع لا تستخدم صوراً — بل مخططات UI مرسومة بـ CSS و SVG من متغيّرات
+الثيم، فتتكيّف مع الوضعين ولا تضيف أي حجم تحميل. المتاح حالياً:
+`dashboard`, `factory`, `map`, `subscriptions`, `store`.
+
+---
+
+## ملاحظات RTL
+
+- استُخدمت الخصائص المنطقية (`ms-*`, `-start-*`, `border-e`) بدل `left/right`.
+- **مهم:** لا تضع `dir="ltr"` على عنصر يستخدم `-start-*` أو `-end-*` — الخصائص
+  المنطقية تُحسب باتجاه العنصر نفسه، فينقلب موضعه. ضع `dir` على عنصر داخلي.
+- النصوص اللاتينية داخل فقرة عربية (البريد، الهاتف) مغلّفة بـ `<bdi>` لتُقرأ
+  من اليسار لليمين مع بقائها في بداية السطر.

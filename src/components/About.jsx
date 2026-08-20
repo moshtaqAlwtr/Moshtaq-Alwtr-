@@ -1,58 +1,84 @@
-import { Quote } from 'lucide-react'
+import { Quote } from './icons'
 import { getIcon } from './icons'
-import { profile, whyMe } from '../data/content'
-import { Reveal, Section, SectionTitle } from './ui'
+import { useI18n } from '../app/providers'
+import { whyMeMeta } from '../data/structure'
+import { Reveal, Section, SectionHeading } from './ui'
 
 export default function About() {
+  const { t } = useI18n()
+
+  const info = [
+    { icon: 'User', label: t.about.info.name, value: t.profile.name },
+    { icon: 'Briefcase', label: t.about.info.role, value: t.about.info.roleValue },
+    { icon: 'MapPin', label: t.about.info.location, value: t.profile.location },
+    {
+      icon: 'CircleCheck',
+      label: t.about.info.status,
+      value: t.profile.status,
+      highlight: true,
+    },
+  ]
+
   return (
     <Section id="about">
       <div className="container-x">
-        <SectionTitle
-          eyebrow="نبذة عني"
-          title="لست مجرد مطوّر — أنا شريكك التقني"
-          desc="أفهم عملك أولاً، ثم أبني النظام الذي يخدمه فعلاً."
+        <SectionHeading
+          index="01"
+          eyebrow={t.about.eyebrow}
+          title={t.about.title}
+          desc={t.about.desc}
         />
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
-          {/* ----- Bio ----- */}
+        <div className="grid gap-6 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
+          {/* ------------------------------------------------------ bio card */}
           <Reveal>
-            <div className="glass ring-glow relative rounded-3xl p-7 sm:p-9">
-              <Quote
-                size={40}
-                className="mb-5 text-accent/25"
-                strokeWidth={1.5}
-              />
+            <div className="card edge-glow h-full rounded-3xl p-7 sm:p-9">
+              <Quote size={34} className="mb-5 text-brand/30" strokeWidth={1.5} />
 
               <div className="space-y-5">
-                {profile.bio.map((p, i) => (
-                  <p key={i} className="text-[15px] leading-loose text-ink-soft sm:text-base">
-                    {p}
+                {t.about.bio.map((paragraph, i) => (
+                  <p key={i} className="text-[15px] leading-[1.95] text-text-2">
+                    {paragraph}
                   </p>
                 ))}
               </div>
 
-              <div className="mt-8 grid gap-3 border-t border-white/[0.06] pt-7 sm:grid-cols-2">
-                <InfoRow icon="User" label="الاسم" value={profile.name} />
-                <InfoRow icon="Briefcase" label="التخصص" value="Full Stack" />
-                <InfoRow icon="MapPin" label="الموقع" value="الرياض، السعودية" />
-                <InfoRow icon="CircleCheck" label="الحالة" value={profile.status} highlight />
-              </div>
+              <dl className="mt-8 grid gap-3.5 border-t border-border pt-7 sm:grid-cols-2">
+                {info.map((row) => {
+                  const Icon = getIcon(row.icon)
+                  return (
+                    <div key={row.label} className="flex items-center gap-2.5">
+                      <Icon size={15} className="shrink-0 text-brand" />
+                      <dt className="text-xs text-text-4">{row.label}</dt>
+                      <dd
+                        className={`truncate text-sm font-semibold ${
+                          row.highlight ? 'text-brand' : 'text-text-2'
+                        }`}
+                      >
+                        {row.value}
+                      </dd>
+                    </div>
+                  )
+                })}
+              </dl>
             </div>
           </Reveal>
 
-          {/* ----- Why me ----- */}
+          {/* ------------------------------------------------------- why me */}
           <div className="grid gap-4 sm:grid-cols-2">
-            {whyMe.map((item, i) => {
+            {whyMeMeta.map((item, i) => {
               const Icon = getIcon(item.icon)
+              const copy = t.about.whyMe[item.id]
+
               return (
-                <Reveal key={item.title} delay={0.08 * i}>
-                  <div className="glass glass-hover ring-glow group h-full rounded-2xl p-6">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20 transition-transform group-hover:scale-110">
-                      <Icon size={22} />
+                <Reveal key={item.id} delay={0.07 * i}>
+                  <div className="card card-hover edge-glow group h-full rounded-2xl p-6">
+                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/20 transition-transform duration-300 group-hover:scale-110">
+                      <Icon size={20} />
                     </div>
-                    <h3 className="font-display text-lg font-bold">{item.title}</h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">
-                      {item.desc}
+                    <h3 className="text-base font-bold tracking-tight">{copy.title}</h3>
+                    <p className="mt-2.5 text-[13.5px] leading-relaxed text-text-3">
+                      {copy.desc}
                     </p>
                   </div>
                 </Reveal>
@@ -62,18 +88,5 @@ export default function About() {
         </div>
       </div>
     </Section>
-  )
-}
-
-function InfoRow({ icon, label, value, highlight }) {
-  const Icon = getIcon(icon)
-  return (
-    <div className="flex items-center gap-3">
-      <Icon size={16} className="shrink-0 text-accent" />
-      <span className="text-xs text-ink-dim">{label}:</span>
-      <span className={`text-sm font-semibold ${highlight ? 'text-accent' : 'text-ink-soft'}`}>
-        {value}
-      </span>
-    </div>
   )
 }

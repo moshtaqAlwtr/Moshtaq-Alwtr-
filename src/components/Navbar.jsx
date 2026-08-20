@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Code2 } from 'lucide-react'
-import { navLinks, profile } from '../data/content'
+import { Code2, Languages, Menu, Moon, Sun, X } from './icons'
+import { useI18n, useTheme } from '../app/providers'
+import { contact, sectionIds } from '../data/structure'
 
 export default function Navbar() {
+  const { t, toggleLang } = useI18n()
+  const { isDark, toggleTheme } = useTheme()
+
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState('home')
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => setScrolled(window.scrollY > 30)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Highlight the section currently filling the viewport
+  // Highlight whichever section currently owns the middle of the viewport.
   useEffect(() => {
-    const sections = navLinks
-      .map((l) => document.getElementById(l.id))
-      .filter(Boolean)
+    const nodes = sectionIds.map((id) => document.getElementById(id)).filter(Boolean)
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -31,11 +33,10 @@ export default function Navbar() {
       { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] }
     )
 
-    sections.forEach((s) => observer.observe(s))
+    nodes.forEach((n) => observer.observe(n))
     return () => observer.disconnect()
   }, [])
 
-  // Lock body scroll while the mobile sheet is open
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => {
@@ -53,39 +54,37 @@ export default function Navbar() {
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'border-b border-white/[0.06] bg-section/80 backdrop-blur-xl'
+            ? 'border-b border-border bg-bg/80 backdrop-blur-xl'
             : 'border-b border-transparent'
         }`}
       >
-        <nav className="container-x flex h-[72px] items-center justify-between gap-4">
+        <nav className="container-x flex h-[68px] items-center justify-between gap-4">
           <button
             onClick={() => go('home')}
-            className="group flex items-center gap-2.5 font-display text-lg font-extrabold"
+            className="group flex items-center gap-2.5 text-[15px] font-extrabold tracking-tight"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-grad-primary text-page shadow-lg shadow-accent/25 transition-transform group-hover:scale-110">
-              <Code2 size={18} strokeWidth={2.6} />
+            <span className="brand-fill flex h-9 w-9 items-center justify-center rounded-xl transition-transform group-hover:scale-110">
+              <Code2 size={17} strokeWidth={2.6} />
             </span>
             <span className="hidden sm:inline">
-              مشتاق <span className="grad-text">الوتر</span>
+              {t.profile.firstName} <span className="brand-text">{t.profile.lastName}</span>
             </span>
           </button>
 
-          <ul className="hidden items-center gap-1 lg:flex">
-            {navLinks.map((link) => (
-              <li key={link.id}>
+          <ul className="hidden items-center gap-0.5 lg:flex">
+            {sectionIds.map((id) => (
+              <li key={id}>
                 <button
-                  onClick={() => go(link.id)}
-                  className={`relative rounded-lg px-3.5 py-2 text-sm font-medium transition-colors ${
-                    active === link.id
-                      ? 'text-ink'
-                      : 'text-ink-muted hover:text-ink'
+                  onClick={() => go(id)}
+                  className={`relative rounded-lg px-3.5 py-2 text-[13px] font-semibold transition-colors ${
+                    active === id ? 'text-text' : 'text-text-3 hover:text-text'
                   }`}
                 >
-                  {link.label}
-                  {active === link.id && (
+                  {t.nav[id]}
+                  {active === id && (
                     <motion.span
                       layoutId="nav-pill"
-                      className="absolute inset-0 -z-10 rounded-lg bg-accent/10 ring-1 ring-accent/20"
+                      className="absolute inset-0 -z-10 rounded-lg bg-brand/10 ring-1 ring-brand/20"
                       transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                     />
                   )}
@@ -95,21 +94,52 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={toggleLang}
+              aria-label={t.ui.switchLang}
+              title={t.ui.switchLang}
+              className="icon-btn h-9 gap-1.5 px-2.5 text-xs font-bold"
+            >
+              <Languages size={15} />
+              {t.ui.langShort}
+            </button>
+
+            <button
+              onClick={toggleTheme}
+              aria-label={isDark ? t.ui.toLight : t.ui.toDark}
+              title={isDark ? t.ui.toLight : t.ui.toDark}
+              className="icon-btn h-9 w-9"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={isDark ? 'moon' : 'sun'}
+                  initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
+                  animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                  exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
+                  transition={{ duration: 0.22 }}
+                  className="flex"
+                >
+                  {isDark ? <Moon size={16} /> : <Sun size={16} />}
+                </motion.span>
+              </AnimatePresence>
+            </button>
+
             <a
-              href={`https://wa.me/${profile.whatsapp}`}
+              href={`https://wa.me/${contact.whatsapp}`}
               target="_blank"
               rel="noreferrer"
-              className="hidden rounded-xl bg-grad-primary px-5 py-2.5 text-sm font-bold text-page shadow-lg shadow-accent/20 transition-transform hover:scale-105 sm:inline-block"
+              className="btn-primary hidden !px-5 !py-2.5 !text-[13px] sm:inline-flex"
             >
-              لنتحدّث
+              {t.nav.cta}
             </a>
 
             <button
               onClick={() => setOpen((v) => !v)}
-              aria-label="القائمة"
-              className="glass flex h-10 w-10 items-center justify-center rounded-xl lg:hidden"
+              aria-label={t.ui.menu}
+              aria-expanded={open}
+              className="icon-btn h-9 w-9 lg:hidden"
             >
-              {open ? <X size={20} /> : <Menu size={20} />}
+              {open ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </nav>
@@ -121,26 +151,26 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-page/95 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-40 bg-bg/97 backdrop-blur-xl lg:hidden"
           >
-            <ul className="container-x flex h-full flex-col justify-center gap-2">
-              {navLinks.map((link, i) => (
+            <ul className="container-x flex h-full flex-col justify-center gap-1">
+              {sectionIds.map((id, i) => (
                 <motion.li
-                  key={link.id}
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.06 * i }}
+                  key={id}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 * i }}
                 >
                   <button
-                    onClick={() => go(link.id)}
-                    className={`w-full rounded-2xl px-5 py-4 text-right font-display text-2xl font-bold transition-colors ${
-                      active === link.id ? 'bg-accent/10 text-accent' : 'text-ink-soft'
+                    onClick={() => go(id)}
+                    className={`flex w-full items-center gap-4 rounded-2xl px-5 py-3.5 text-start text-2xl font-extrabold tracking-tight transition-colors ${
+                      active === id ? 'bg-brand/10 text-brand' : 'text-text-2'
                     }`}
                   >
-                    <span className="me-3 font-mono text-sm text-ink-dim">
+                    <span className="font-mono text-xs font-medium text-text-4">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    {link.label}
+                    {t.nav[id]}
                   </button>
                 </motion.li>
               ))}

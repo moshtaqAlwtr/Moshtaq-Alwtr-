@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-/* ---------- Scroll reveal wrapper ---------- */
-export function Reveal({ children, delay = 0, y = 28, className = '' }) {
+/* ---------- Scroll reveal ---------- */
+export function Reveal({ children, delay = 0, y = 24, className = '' }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const inView = useInView(ref, { once: true, margin: '-70px' })
 
   return (
     <motion.div
@@ -12,31 +12,61 @@ export function Reveal({ children, delay = 0, y = 28, className = '' }) {
       className={className}
       initial={{ opacity: 0, y }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
   )
 }
 
-/* ---------- Section heading ---------- */
-export function SectionTitle({ eyebrow, title, desc, align = 'center' }) {
-  const alignCls = align === 'center' ? 'text-center items-center' : 'text-right items-start'
+/* ---------- Section shell ---------- */
+export function Section({ id, children, tinted = false, className = '' }) {
+  return (
+    <section
+      id={id}
+      className={`relative scroll-mt-24 py-20 sm:py-28 ${tinted ? 'bg-bg-soft' : ''} ${className}`}
+    >
+      {children}
+    </section>
+  )
+}
+
+/**
+ * Section heading.
+ *
+ * The index ("02") and a hairline rule sit beside the eyebrow rather than
+ * stacking a centred chip + bar + text, which keeps the vertical rhythm tighter
+ * and gives every section a consistent left/right anchor.
+ */
+export function SectionHeading({ index, eyebrow, title, desc, align = 'start' }) {
+  const centered = align === 'center'
 
   return (
-    <Reveal className={`flex flex-col ${alignCls} gap-4 mb-14`}>
-      {eyebrow && (
-        <span className="chip">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+    <Reveal className={`mb-12 sm:mb-16 ${centered ? 'text-center' : ''}`}>
+      <div
+        className={`flex items-center gap-3 ${centered ? 'justify-center' : ''}`}
+      >
+        {index && (
+          <span className="font-mono text-xs font-medium text-brand">{index}</span>
+        )}
+        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-3">
           {eyebrow}
         </span>
-      )}
-      <h2 className="font-display text-3xl font-extrabold leading-[1.35] sm:text-4xl md:text-[2.75rem]">
+        <span
+          className={`h-px flex-1 bg-border ${centered ? 'max-w-[60px]' : 'max-w-[160px]'}`}
+        />
+      </div>
+
+      <h2 className="mt-5 max-w-3xl text-[1.75rem] font-extrabold leading-[1.3] tracking-tight sm:text-4xl md:text-[2.6rem]">
         {title}
       </h2>
-      <div className="mt-1 h-1 w-20 rounded-full bg-grad-primary" />
+
       {desc && (
-        <p className={`max-w-2xl text-base leading-relaxed text-ink-muted ${align === 'center' ? 'mx-auto' : ''}`}>
+        <p
+          className={`mt-4 max-w-2xl text-[15px] leading-relaxed text-text-3 sm:text-base ${
+            centered ? 'mx-auto' : ''
+          }`}
+        >
           {desc}
         </p>
       )}
@@ -44,20 +74,8 @@ export function SectionTitle({ eyebrow, title, desc, align = 'center' }) {
   )
 }
 
-/* ---------- Section shell ---------- */
-export function Section({ id, children, className = '', tinted = false }) {
-  return (
-    <section
-      id={id}
-      className={`relative scroll-mt-24 py-20 sm:py-28 ${tinted ? 'bg-section/60' : ''} ${className}`}
-    >
-      {children}
-    </section>
-  )
-}
-
-/* ---------- Count-up number ---------- */
-export function CountUp({ value, suffix = '', duration = 1600 }) {
+/* ---------- Count-up ---------- */
+export function CountUp({ value, suffix = '', duration = 1500 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const [display, setDisplay] = useState(0)
@@ -69,8 +87,7 @@ export function CountUp({ value, suffix = '', duration = 1600 }) {
 
     const tick = (now) => {
       const p = Math.min((now - start) / duration, 1)
-      // easeOutExpo
-      const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p)
+      const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p) // easeOutExpo
       setDisplay(Math.round(eased * value))
       if (p < 1) frame = requestAnimationFrame(tick)
     }
@@ -88,10 +105,17 @@ export function CountUp({ value, suffix = '', duration = 1600 }) {
 }
 
 /* ---------- Rotating role typewriter ---------- */
-export function Typewriter({ words, typeSpeed = 90, deleteSpeed = 45, pause = 1800 }) {
+export function Typewriter({ words, typeSpeed = 65, deleteSpeed = 32, pause = 2000 }) {
   const [index, setIndex] = useState(0)
   const [text, setText] = useState('')
   const [deleting, setDeleting] = useState(false)
+
+  // Restart cleanly when the language (and therefore the word list) changes.
+  useEffect(() => {
+    setIndex(0)
+    setText('')
+    setDeleting(false)
+  }, [words])
 
   useEffect(() => {
     const word = words[index % words.length]
@@ -117,57 +141,83 @@ export function Typewriter({ words, typeSpeed = 90, deleteSpeed = 45, pause = 18
 
   return (
     <span className="inline-flex items-center">
-      <bdi className="grad-text font-bold">{text}</bdi>
-      <span className="ms-1 inline-block h-[1em] w-[2px] animate-blink bg-accent align-middle" />
+      {/* <bdi> isolates the typed string so mixed Arabic/Latin phrases keep the
+          caret at the visual end instead of scrambling at the bidi boundary. */}
+      <bdi className="brand-text font-bold">{text}</bdi>
+      <span className="ms-1 inline-block h-[1.05em] w-[2px] animate-blink bg-brand align-middle" />
     </span>
   )
 }
 
-/* ---------- Ambient background orbs + grid ---------- */
+/* ---------- Segmented proficiency meter ---------- */
+
+// Written out in full because Tailwind cannot see interpolated class names.
+const TONE_BG = {
+  brand: 'bg-brand',
+  'brand-2': 'bg-brand-2',
+  'brand-3': 'bg-brand-3',
+}
+
+export function LevelMeter({ level, max = 5, tone = 'brand' }) {
+  return (
+    <span className="flex items-center gap-1" aria-label={`${level}/${max}`}>
+      {Array.from({ length: max }, (_, i) => (
+        <span
+          key={i}
+          className={`h-1.5 rounded-full transition-all duration-500 ${
+            i < level ? `w-4 ${TONE_BG[tone] ?? TONE_BG.brand}` : 'w-2 bg-border-strong'
+          }`}
+        />
+      ))}
+    </span>
+  )
+}
+
+/* ---------- Ambient background ---------- */
 export function Ambient() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-page" />
+      <div className="absolute inset-0 bg-bg transition-colors duration-500" />
       <div className="absolute inset-0 grid-bg" />
       <div
-        className="orb animate-drift"
+        className="orb animate-drift opacity-70 dark:opacity-100"
         style={{
-          top: '-10%',
+          top: '-12%',
           insetInlineEnd: '-8%',
           width: '46vw',
           height: '46vw',
-          background: 'radial-gradient(circle, rgba(16,185,129,0.18), transparent 65%)',
+          background: 'radial-gradient(circle, rgb(var(--brand) / 0.18), transparent 65%)',
         }}
       />
       <div
-        className="orb animate-drift"
+        className="orb animate-drift opacity-70 dark:opacity-100"
         style={{
-          top: '35%',
+          top: '38%',
           insetInlineStart: '-12%',
           width: '42vw',
           height: '42vw',
-          background: 'radial-gradient(circle, rgba(6,182,212,0.14), transparent 65%)',
-          animationDelay: '-6s',
+          background: 'radial-gradient(circle, rgb(var(--brand-2) / 0.16), transparent 65%)',
+          animationDelay: '-7s',
         }}
       />
       <div
-        className="orb animate-drift"
+        className="orb animate-drift opacity-70 dark:opacity-100"
         style={{
-          bottom: '-15%',
-          insetInlineEnd: '20%',
+          bottom: '-14%',
+          insetInlineEnd: '18%',
           width: '38vw',
           height: '38vw',
-          background: 'radial-gradient(circle, rgba(139,92,246,0.12), transparent 65%)',
-          animationDelay: '-12s',
+          background: 'radial-gradient(circle, rgb(var(--brand-3) / 0.1), transparent 65%)',
+          animationDelay: '-14s',
         }}
       />
-      <div className="noise absolute inset-0 opacity-[0.015] mix-blend-overlay" />
     </div>
   )
 }
 
-/* ---------- Floating particles (canvas-free, cheap) ---------- */
-export function Particles({ count = 26 }) {
+/* ---------- Sparse floating particles (hero only) ---------- */
+export function Particles({ count = 22 }) {
+  // Deterministic positions keep server/client and re-renders identical.
   const dots = useRef(
     Array.from({ length: count }, (_, i) => ({
       left: (i * 37) % 100,
@@ -183,7 +233,7 @@ export function Particles({ count = 26 }) {
       {dots.map((d, i) => (
         <span
           key={i}
-          className="absolute rounded-full bg-accent/40 animate-float"
+          className="absolute animate-float rounded-full bg-brand/40"
           style={{
             left: `${d.left}%`,
             top: `${d.top}%`,

@@ -1,49 +1,60 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
 import { getIcon } from './icons'
-import { skillGroups } from '../data/content'
-import { Reveal, Section, SectionTitle } from './ui'
+import { useI18n } from '../app/providers'
+import { skillGroupsMeta } from '../data/structure'
+import { LevelMeter, Reveal, Section, SectionHeading } from './ui'
+
+// Tailwind needs the full class strings, so the tone map is spelled out.
+const TONE = {
+  brand: { text: 'text-brand', bg: 'bg-brand/10', ring: 'ring-brand/20' },
+  'brand-2': { text: 'text-brand-2', bg: 'bg-brand-2/10', ring: 'ring-brand-2/20' },
+  'brand-3': { text: 'text-brand-3', bg: 'bg-brand-3/10', ring: 'ring-brand-3/20' },
+}
 
 export default function Skills() {
+  const { t } = useI18n()
+
   return (
     <Section id="skills" tinted>
       <div className="container-x">
-        <SectionTitle
-          eyebrow="المهارات التقنية"
-          title="التقنيات التي أعمل بها"
-          desc="مجموعة أدوات اخترتها لأنها تنجز العمل — من الواجهة حتى قاعدة البيانات والسيرفر."
+        <SectionHeading
+          index="02"
+          eyebrow={t.skills.eyebrow}
+          title={t.skills.title}
+          desc={t.skills.desc}
         />
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {skillGroups.map((group, gi) => {
+        <div className="grid gap-4 md:grid-cols-2">
+          {skillGroupsMeta.map((group, gi) => {
             const Icon = getIcon(group.icon)
+            const tone = TONE[group.tone] ?? TONE.brand
+
             return (
-              <Reveal key={group.title} delay={0.08 * gi}>
-                <div className="glass glass-hover ring-glow h-full rounded-3xl p-6 sm:p-7">
-                  <div className="mb-7 flex items-center gap-3.5">
+              <Reveal key={group.id} delay={0.07 * gi}>
+                <div className="card card-hover edge-glow h-full rounded-2xl p-6 sm:p-7">
+                  <div className="mb-6 flex items-center gap-3">
                     <span
-                      className="flex h-11 w-11 items-center justify-center rounded-xl"
-                      style={{
-                        background: `${group.color}1a`,
-                        color: group.color,
-                        boxShadow: `inset 0 0 0 1px ${group.color}33`,
-                      }}
+                      className={`flex h-10 w-10 items-center justify-center rounded-xl ring-1 ${tone.bg} ${tone.text} ${tone.ring}`}
                     >
-                      <Icon size={21} />
+                      <Icon size={19} />
                     </span>
-                    <h3 className="font-display text-lg font-bold">{group.title}</h3>
+                    <h3 className="text-base font-bold tracking-tight">
+                      {t.skills.groups[group.id]}
+                    </h3>
                   </div>
 
-                  <div className="space-y-5">
-                    {group.skills.map((skill, si) => (
-                      <SkillBar
+                  <ul className="space-y-3.5">
+                    {group.skills.map((skill) => (
+                      <li
                         key={skill.name}
-                        skill={skill}
-                        color={group.color}
-                        delay={si * 0.09}
-                      />
+                        className="flex items-center justify-between gap-4"
+                      >
+                        <span className="text-sm font-medium text-text-2" dir="ltr">
+                          {skill.name}
+                        </span>
+                        <LevelMeter level={skill.level} tone={group.tone} />
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </Reveal>
             )
@@ -51,34 +62,5 @@ export default function Skills() {
         </div>
       </div>
     </Section>
-  )
-}
-
-function SkillBar({ skill, color, delay }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-
-  return (
-    <div ref={ref}>
-      <div className="mb-2 flex items-center justify-between">
-        <span className="text-sm font-semibold text-ink-soft" dir="auto">
-          {skill.name}
-        </span>
-        <span className="font-mono text-xs text-ink-dim">{skill.level}%</span>
-      </div>
-
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]">
-        <motion.div
-          className="h-full rounded-full"
-          style={{
-            background: `linear-gradient(270deg, ${color}, ${color}99)`,
-            boxShadow: `0 0 12px ${color}66`,
-          }}
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${skill.level}%` } : {}}
-          transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </div>
-    </div>
   )
 }

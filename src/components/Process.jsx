@@ -1,51 +1,61 @@
-import { process } from '../data/content'
-import { Reveal, Section, SectionTitle } from './ui'
+import { useI18n } from '../app/providers'
+import { processMeta } from '../data/structure'
+import { Reveal, Section, SectionHeading } from './ui'
 
 export default function Process() {
+  const { t } = useI18n()
+
   return (
     <Section id="process">
       <div className="container-x">
-        <SectionTitle
-          eyebrow="آلية العمل"
-          title="٧ خطوات من الفكرة إلى الإطلاق"
-          desc="مسار واضح تعرف فيه أين وصل مشروعك في كل لحظة — بلا مفاجآت."
+        <SectionHeading
+          index="05"
+          eyebrow={t.process.eyebrow}
+          title={t.process.title}
+          desc={t.process.desc}
         />
 
-        <div className="relative mx-auto max-w-3xl">
-          {/* vertical rail */}
+        <div className="relative">
+          {/* Rail sits behind the step numbers; the numbers carry a solid
+              background so the line appears to pass through them. */}
           <div
-            className="absolute bottom-0 top-0 hidden w-px sm:block"
+            className="absolute inset-y-0 hidden w-px sm:block"
             style={{
-              insetInlineStart: '27px',
+              insetInlineStart: '23px',
               background:
-                'linear-gradient(180deg, transparent, rgba(16,185,129,0.35) 8%, rgba(16,185,129,0.35) 92%, transparent)',
+                'linear-gradient(180deg, transparent, rgb(var(--border-strong)) 6%, rgb(var(--border-strong)) 94%, transparent)',
             }}
+            aria-hidden
           />
 
-          <div className="space-y-4">
-            {process.map((item, i) => (
-              <Reveal key={item.step} delay={0.05 * i}>
-                <div className="group relative flex gap-5">
-                  {/* node */}
-                  <div className="relative z-10 hidden shrink-0 sm:block">
-                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/[0.08] bg-section font-mono text-sm font-bold text-ink-muted transition-all duration-300 group-hover:border-accent/40 group-hover:bg-accent/10 group-hover:text-accent">
-                      {item.step}
-                    </span>
-                  </div>
+          <ol className="space-y-3">
+            {processMeta.map((stepId, i) => {
+              const copy = t.process.steps[stepId]
 
-                  <div className="glass glass-hover ring-glow flex-1 rounded-2xl p-6">
-                    <div className="mb-2 flex items-center gap-3">
-                      <span className="font-mono text-sm font-bold text-accent sm:hidden">
-                        {item.step}
-                      </span>
-                      <h3 className="font-display text-lg font-bold">{item.title}</h3>
+              return (
+                <Reveal key={stepId} delay={0.04 * i}>
+                  <li className="group relative flex gap-5">
+                    <span
+                      className="relative z-10 hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-bg font-mono text-[13px] font-bold text-text-3 transition-all duration-300 group-hover:border-brand/40 group-hover:bg-brand/10 group-hover:text-brand sm:flex"
+                      aria-hidden
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+
+                    <div className="card card-hover edge-glow flex-1 rounded-2xl p-5 sm:p-6">
+                      <div className="mb-2 flex items-center gap-3">
+                        <span className="font-mono text-[13px] font-bold text-brand sm:hidden">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <h3 className="text-base font-bold tracking-tight">{copy.title}</h3>
+                      </div>
+                      <p className="text-[13.5px] leading-[1.85] text-text-3">{copy.desc}</p>
                     </div>
-                    <p className="text-sm leading-loose text-ink-muted">{item.desc}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+                  </li>
+                </Reveal>
+              )
+            })}
+          </ol>
         </div>
       </div>
     </Section>

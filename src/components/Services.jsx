@@ -1,34 +1,40 @@
 import { getIcon } from './icons'
-import { services } from '../data/content'
-import { Reveal, Section, SectionTitle } from './ui'
+import { useI18n } from '../app/providers'
+import { servicesMeta } from '../data/structure'
+import { Reveal, Section, SectionHeading } from './ui'
 
 export default function Services() {
+  const { t } = useI18n()
+
   return (
     <Section id="services" tinted>
       <div className="container-x">
-        <SectionTitle
-          eyebrow="خدماتي"
-          title="ماذا أقدّم لك"
-          desc="مجموعة شاملة من خدمات التطوير — من الفكرة الأولى حتى الإطلاق والدعم المستمر."
+        <SectionHeading
+          index="04"
+          eyebrow={t.services.eyebrow}
+          title={t.services.title}
+          desc={t.services.desc}
         />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, i) => {
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {servicesMeta.map((service, i) => {
             const Icon = getIcon(service.icon)
+            const copy = t.services.items[service.id]
+
             return (
-              <Reveal key={service.title} delay={0.06 * i}>
-                <div className="glass glass-hover ring-glow group relative h-full overflow-hidden rounded-2xl p-7">
-                  <span className="pointer-events-none absolute -top-10 -end-6 font-display text-7xl font-black text-white/[0.03] transition-colors group-hover:text-accent/[0.07]">
+              <Reveal key={service.id} delay={0.05 * i}>
+                <div className="card card-hover edge-glow group relative h-full overflow-hidden rounded-2xl p-6 sm:p-7">
+                  <span className="pointer-events-none absolute -top-6 -end-2 font-mono text-6xl font-bold text-text/[0.035] transition-colors duration-300 group-hover:text-brand/[0.09]">
                     {String(i + 1).padStart(2, '0')}
                   </span>
 
                   <div className="relative">
-                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20 transition-all duration-300 group-hover:bg-accent group-hover:text-page">
-                      <Icon size={22} />
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/20 transition-all duration-300 group-hover:bg-brand group-hover:text-brand-contrast">
+                      <Icon size={20} />
                     </div>
-                    <h3 className="font-display text-lg font-bold">{service.title}</h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">
-                      {service.desc}
+                    <h3 className="text-base font-bold tracking-tight">{copy.title}</h3>
+                    <p className="mt-2.5 text-[13.5px] leading-relaxed text-text-3">
+                      {copy.desc}
                     </p>
                   </div>
                 </div>

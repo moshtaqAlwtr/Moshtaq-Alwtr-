@@ -1,208 +1,175 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, MessageCircle, FolderGit2, MapPin } from 'lucide-react'
-import { profile, stats } from '../data/content'
+import { ArrowDown, ArrowUpRight, MapPin, MessageCircle } from './icons'
+import { useI18n } from '../app/providers'
+import { contact, statsMeta, techMarquee } from '../data/structure'
 import { CountUp, Particles, Typewriter } from './ui'
 
-const techBadges = ['React', 'Laravel', 'Node.js', 'MySQL', 'React Native', 'REST API', 'TailwindCSS', 'Firebase']
+const rise = (delay) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] },
+})
 
 export default function Hero() {
+  const { t, isRTL } = useI18n()
+
   const go = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
   return (
-    <section id="home" className="relative min-h-svh overflow-hidden pt-[72px]">
+    <section id="home" className="relative overflow-hidden pt-[68px]">
       <Particles />
 
-      <div className="container-x flex min-h-[calc(100svh-72px)] flex-col justify-center py-16">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
-          {/* ---------- Copy ---------- */}
+      <div className="container-x py-16 sm:py-24 lg:py-28">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          {/* ---------------------------------------------------------- copy */}
           <div>
-            <motion.span
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="chip"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            <motion.span {...rise(0)} className="chip">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
               </span>
-              {profile.status}
+              {t.profile.status}
             </motion.span>
 
             <motion.h1
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="mt-6 font-display text-4xl font-black leading-[1.15] sm:text-5xl lg:text-6xl"
+              {...rise(0.08)}
+              className="mt-6 text-[2.15rem] font-extrabold leading-[1.2] tracking-tight sm:text-5xl lg:text-[3.4rem]"
             >
-              مرحباً، أنا{' '}
-              <span className="relative inline-block">
-                <span className="grad-text">{profile.name}</span>
-                <svg
-                  className="absolute -bottom-4 right-0 w-full"
-                  height="10"
-                  viewBox="0 0 200 10"
-                  preserveAspectRatio="none"
-                  aria-hidden
-                >
-                  <path
-                    d="M2 7 Q 50 1 100 5 T 198 4"
-                    stroke="url(#underline)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                  <defs>
-                    <linearGradient id="underline" x1="0" x2="1">
-                      <stop offset="0%" stopColor="#10b981" />
-                      <stop offset="100%" stopColor="#06b6d4" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </span>
+              <span className="block text-text-2">{t.hero.greeting}</span>
+              <span className="brand-text">{t.profile.name}</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-7 font-display text-xl font-semibold text-ink-soft sm:text-2xl"
+              {...rise(0.16)}
+              className="mt-5 min-h-[1.8em] text-lg font-semibold text-text-2 sm:text-xl"
             >
-              <Typewriter words={profile.roles} />
+              <Typewriter words={t.profile.roles} />
             </motion.p>
 
             <motion.p
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-5 max-w-xl text-base leading-loose text-ink-muted sm:text-lg"
+              {...rise(0.24)}
+              className="mt-6 max-w-xl text-[15px] leading-[1.9] text-text-3 sm:text-base"
             >
-              {profile.tagline}
+              {t.hero.tagline}
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-9 flex flex-wrap items-center gap-3"
-            >
-              <button
-                onClick={() => go('projects')}
-                className="group inline-flex items-center gap-2 rounded-xl bg-grad-primary px-6 py-3.5 font-bold text-page shadow-lg shadow-accent/25 transition-transform hover:scale-105"
-              >
-                <FolderGit2 size={18} />
-                شاهد مشاريعي
+            <motion.div {...rise(0.32)} className="mt-9 flex flex-wrap items-center gap-3">
+              <button onClick={() => go('projects')} className="btn-primary">
+                {t.hero.viewWork}
+                <ArrowUpRight size={17} className={isRTL ? '-scale-x-100' : ''} />
               </button>
 
               <a
-                href={`https://wa.me/${profile.whatsapp}`}
+                href={`https://wa.me/${contact.whatsapp}`}
                 target="_blank"
                 rel="noreferrer"
-                className="glass glass-hover inline-flex items-center gap-2 rounded-xl px-6 py-3.5 font-bold text-ink"
+                className="btn-ghost"
               >
-                <MessageCircle size={18} className="text-accent" />
-                تواصل معي
+                <MessageCircle size={17} className="text-brand" />
+                {t.hero.contactMe}
               </a>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.55 }}
-              className="mt-7 flex items-center gap-2 text-sm text-ink-dim"
+              {...rise(0.4)}
+              className="mt-7 flex items-center gap-2 text-sm text-text-4"
             >
-              <MapPin size={15} className="text-accent" />
-              {profile.location}
+              <MapPin size={14} className="text-brand" />
+              {t.profile.location}
             </motion.div>
           </div>
 
-          {/* ---------- Portrait ---------- */}
+          {/* ------------------------------------------------------- portrait */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto w-full max-w-[340px] lg:max-w-none"
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mx-auto w-full max-w-[330px] lg:max-w-[400px]"
           >
             <div className="relative aspect-square">
-              {/* rotating conic ring */}
               <div
-                className="absolute inset-0 rounded-[2.5rem] opacity-70"
+                className="absolute inset-3 rounded-[2.5rem] opacity-30 dark:opacity-60"
                 style={{
                   background:
-                    'conic-gradient(from 0deg, #10b981, #06b6d4, #8b5cf6, #10b981)',
-                  filter: 'blur(28px)',
-                  animation: 'ring-spin 12s linear infinite',
+                    'conic-gradient(from 0deg, rgb(var(--brand)), rgb(var(--brand-2)), rgb(var(--brand-3)), rgb(var(--brand)))',
+                  filter: 'blur(34px)',
+                  animation: 'ring-spin 14s linear infinite',
                 }}
               />
 
-              <div className="glass relative h-full w-full overflow-hidden rounded-[2.5rem] p-2">
+              <div className="card relative h-full w-full overflow-hidden rounded-[2.25rem] p-2">
                 <img
                   src={`${import.meta.env.BASE_URL}moshtaq.jpg`}
-                  alt={profile.name}
+                  alt={t.profile.name}
+                  width="400"
+                  height="400"
                   loading="eager"
-                  className="h-full w-full rounded-[2rem] object-cover object-top"
+                  className="h-full w-full rounded-[1.75rem] object-cover object-top"
                 />
-                <div className="pointer-events-none absolute inset-2 rounded-[2rem] bg-gradient-to-t from-page/70 via-transparent to-transparent" />
               </div>
 
-              {/* floating code chip */}
               <motion.div
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="glass absolute -bottom-5 -start-5 rounded-2xl px-4 py-3 font-mono text-xs shadow-xl sm:text-sm"
-                dir="ltr"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="card absolute -bottom-4 -start-4 rounded-2xl bg-surface px-4 py-3 font-mono text-[11px] leading-relaxed shadow-lg sm:text-xs"
               >
-                <div className="text-ink-dim">{'<Developer'}</div>
-                <div className="ps-3 text-accent">
-                  stack=<span className="text-accent-2">"Full"</span>
+                {/* dir stays on the inner node: putting it on the positioned
+                    element would make -start-4 resolve LTR inside an RTL page. */}
+                <div dir="ltr">
+                  <div className="text-text-4">{'<Developer'}</div>
+                  <div className="ps-3 text-brand">
+                    stack=<span className="text-brand-2">"Full"</span>
+                  </div>
+                  <div className="text-text-4">{'/>'}</div>
                 </div>
-                <div className="text-ink-dim">{'/>'}</div>
               </motion.div>
 
               <motion.div
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="glass absolute -top-4 -end-4 rounded-2xl px-4 py-3 text-center shadow-xl"
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                className="card absolute -top-3 -end-3 rounded-2xl bg-surface px-4 py-2.5 text-center shadow-lg"
               >
-                <div className="font-display text-2xl font-black grad-text">+5</div>
-                <div className="text-[11px] text-ink-muted">سنوات خبرة</div>
+                <div className="brand-text text-xl font-extrabold">5+</div>
+                <div className="text-[10px] text-text-3">{t.hero.experienceBadge}</div>
               </motion.div>
             </div>
           </motion.div>
         </div>
 
-        {/* ---------- Stats ---------- */}
-        <motion.div
-          initial={{ opacity: 0, y: 26 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.65 }}
-          className="mt-16 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
+        {/* ---------------------------------------------------------- stats */}
+        <motion.dl
+          {...rise(0.5)}
+          className="card mt-16 grid grid-cols-2 rounded-2xl lg:grid-cols-4"
         >
-          {stats.map((s) => (
+          {statsMeta.map((s, i) => (
             <div
-              key={s.label}
-              className="glass glass-hover rounded-2xl px-4 py-5 text-center"
+              key={s.id}
+              className={`px-5 py-6 text-center ${
+                i < 2 ? 'border-b border-border lg:border-b-0' : ''
+              } ${i % 2 === 0 ? 'border-e border-border' : ''} ${
+                i === 2 ? 'lg:border-s lg:border-border' : ''
+              }`}
             >
-              <div className="font-display text-3xl font-black grad-text sm:text-4xl">
+              <dd className="brand-text text-3xl font-extrabold sm:text-4xl">
                 <CountUp value={s.value} suffix={s.suffix} />
-              </div>
-              <div className="mt-1.5 text-xs text-ink-muted sm:text-sm">{s.label}</div>
+              </dd>
+              <dt className="mt-1.5 text-xs text-text-3 sm:text-sm">{t.stats[s.id]}</dt>
             </div>
           ))}
-        </motion.div>
+        </motion.dl>
       </div>
 
-      {/* ---------- Tech marquee ---------- */}
-      <div className="relative overflow-hidden border-y border-white/[0.05] bg-section/40 py-4">
+      {/* ---------------------------------------------------- tech marquee */}
+      <div className="relative overflow-hidden border-y border-border bg-bg-soft/60 py-3.5">
         <div className="flex w-max animate-marquee gap-10">
-          {[...techBadges, ...techBadges].map((t, i) => (
+          {[...techMarquee, ...techMarquee].map((tech, i) => (
             <span
               key={i}
-              className="whitespace-nowrap font-mono text-sm text-ink-dim transition-colors hover:text-accent"
+              className="whitespace-nowrap font-mono text-[13px] text-text-4 transition-colors hover:text-brand"
               dir="ltr"
             >
-              {t}
+              {tech}
             </span>
           ))}
         </div>
@@ -210,10 +177,10 @@ export default function Hero() {
 
       <button
         onClick={() => go('about')}
-        aria-label="انتقل للأسفل"
-        className="absolute bottom-24 left-1/2 hidden -translate-x-1/2 animate-float text-ink-dim transition-colors hover:text-accent lg:block"
+        aria-label={t.ui.scroll}
+        className="absolute bottom-24 left-1/2 hidden -translate-x-1/2 animate-sweep text-text-4 transition-colors hover:text-brand xl:block"
       >
-        <ArrowDown size={22} />
+        <ArrowDown size={20} />
       </button>
     </section>
   )

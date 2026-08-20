@@ -1,37 +1,39 @@
-import { Code2, Github, Mail, MessageCircle, Phone } from 'lucide-react'
-import { navLinks, profile } from '../data/content'
+import { Code2, Github, Mail, MessageCircle, Phone } from './icons'
+import { useI18n } from '../app/providers'
+import { contact, sectionIds } from '../data/structure'
 
 export default function Footer() {
+  const { t } = useI18n()
   const year = new Date().getFullYear()
 
   const socials = [
-    { icon: MessageCircle, href: `https://wa.me/${profile.whatsapp}`, label: 'واتساب' },
-    { icon: Mail, href: `mailto:${profile.email}`, label: 'البريد' },
-    { icon: Phone, href: `tel:${profile.phone}`, label: 'الهاتف' },
-    { icon: Github, href: profile.github, label: 'GitHub' },
+    { icon: MessageCircle, href: `https://wa.me/${contact.whatsapp}`, label: 'WhatsApp' },
+    { icon: Mail, href: `mailto:${contact.email}`, label: 'Email' },
+    { icon: Phone, href: `tel:${contact.phone}`, label: 'Phone' },
+    { icon: Github, href: contact.github, label: 'GitHub' },
   ]
 
   const go = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
   return (
-    <footer className="relative border-t border-white/[0.06] bg-page pt-14">
+    <footer className="relative border-t border-border bg-bg-soft pt-14">
       <div className="container-x">
-        <div className="grid gap-10 pb-12 md:grid-cols-[1.4fr_1fr_1fr]">
-          {/* brand */}
+        <div className="grid gap-10 pb-12 md:grid-cols-[1.5fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2.5 font-display text-lg font-extrabold">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-grad-primary text-page">
-                <Code2 size={18} strokeWidth={2.6} />
+            <div className="flex items-center gap-2.5 text-[15px] font-extrabold tracking-tight">
+              <span className="brand-fill flex h-9 w-9 items-center justify-center rounded-xl">
+                <Code2 size={17} strokeWidth={2.6} />
               </span>
-              مشتاق <span className="grad-text">الوتر</span>
+              {t.profile.firstName}{' '}
+              <span className="brand-text">{t.profile.lastName}</span>
             </div>
 
-            <p className="mt-4 max-w-sm text-sm leading-loose text-ink-muted">
-              {profile.tagline}
+            <p className="mt-4 max-w-sm text-[13.5px] leading-[1.9] text-text-3">
+              {t.hero.tagline}
             </p>
 
-            <div className="mt-6 flex gap-2.5">
+            <div className="mt-6 flex gap-2">
               {socials.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -39,65 +41,63 @@ export default function Footer() {
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel="noreferrer"
                   aria-label={label}
-                  className="glass glass-hover flex h-10 w-10 items-center justify-center rounded-xl text-ink-muted hover:text-accent"
+                  className="icon-btn h-9 w-9"
                 >
-                  <Icon size={17} />
+                  <Icon size={16} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* nav */}
-          <div>
-            <h4 className="mb-4 font-display text-sm font-bold text-ink">روابط سريعة</h4>
+          <nav>
+            <h4 className="mb-4 text-[13px] font-bold">{t.footer.quickLinks}</h4>
             <ul className="space-y-2.5">
-              {navLinks.map((l) => (
-                <li key={l.id}>
+              {sectionIds.map((id) => (
+                <li key={id}>
                   <button
-                    onClick={() => go(l.id)}
-                    className="text-sm text-ink-muted transition-colors hover:text-accent"
+                    onClick={() => go(id)}
+                    className="text-[13.5px] text-text-3 transition-colors hover:text-brand"
                   >
-                    {l.label}
+                    {t.nav[id]}
                   </button>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* contact */}
           <div>
-            <h4 className="mb-4 font-display text-sm font-bold text-ink">للتواصل</h4>
-            <ul className="space-y-3 text-sm text-ink-muted">
+            <h4 className="mb-4 text-[13px] font-bold">{t.footer.contactHeading}</h4>
+            <ul className="space-y-3 text-[13.5px] text-text-3">
               <li>
                 <a
-                  href={`mailto:${profile.email}`}
-                  className="transition-colors hover:text-accent"
-                  dir="ltr"
+                  href={`mailto:${contact.email}`}
+                  className="transition-colors hover:text-brand"
                 >
-                  {profile.email}
+                  <bdi dir="ltr">{contact.email}</bdi>
                 </a>
               </li>
               <li>
                 <a
-                  href={`tel:${profile.phone}`}
-                  className="transition-colors hover:text-accent"
-                  dir="ltr"
+                  href={`tel:${contact.phone}`}
+                  className="transition-colors hover:text-brand"
                 >
-                  {profile.phone}
+                  <bdi dir="ltr">{contact.phone}</bdi>
                 </a>
               </li>
-              <li>{profile.location}</li>
+              <li>{t.profile.location}</li>
             </ul>
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/[0.06] py-6 text-xs text-ink-dim sm:flex-row">
-          <p>© {year} مشتاق الوتر — جميع الحقوق محفوظة.</p>
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-border py-6 text-xs text-text-4 sm:flex-row">
+          <p>
+            © {year} {t.profile.name} — {t.footer.rights}
+          </p>
           <p className="flex items-center gap-1.5">
-            بُني بـ
-            <span className="font-mono text-accent">React</span>
-            <span className="text-ink-dim">·</span>
-            <span className="font-mono text-accent-2">TailwindCSS</span>
+            {t.footer.builtWith}
+            <span className="font-mono text-brand">React</span>
+            <span>·</span>
+            <span className="font-mono text-brand-2">TailwindCSS</span>
           </p>
         </div>
       </div>
