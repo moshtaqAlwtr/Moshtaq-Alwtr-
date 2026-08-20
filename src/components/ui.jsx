@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { SplitText } from './motion/primitives'
 
 /* ---------- Scroll reveal ---------- */
 export function Reveal({ children, delay = 0, y = 24, className = '' }) {
@@ -54,9 +55,11 @@ export function SectionHeading({ index, eyebrow, title, desc }) {
       {/* Title and copy split the row so the heading block spans the same
           width as the cards beneath it. */}
       <div className="mt-6 grid gap-x-12 gap-y-3 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-end">
-        <h2 className="text-[2.05rem] font-extrabold leading-[1.25] tracking-tight sm:text-4xl md:text-[2.7rem]">
-          {title}
-        </h2>
+        <SplitText
+          as="h2"
+          text={title}
+          className="text-[2.05rem] font-extrabold leading-[1.25] tracking-tight sm:text-4xl md:text-[2.7rem]"
+        />
         {desc && (
           <p className="text-base leading-relaxed text-text-3 lg:pb-2">{desc}</p>
         )}

@@ -5,6 +5,7 @@ import { useI18n } from '../app/providers'
 import { projectsMeta } from '../data/structure'
 import ProjectVisual from './ProjectVisual'
 import { Reveal, Section, SectionHeading } from './ui'
+import { Tilt } from './motion/primitives'
 
 export default function Projects() {
   const { t, isRTL } = useI18n()
@@ -108,13 +109,16 @@ const ProjectCard = forwardRef(function ProjectCard(
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
       onClick={onOpen}
-      className={`card card-hover edge-glow group cursor-pointer overflow-hidden rounded-2xl ${
-        wide ? 'md:col-span-2' : ''
-      }`}
+      className={wide ? 'md:col-span-2' : ''}
     >
+      <Tilt
+        className="card card-hover edge-glow group relative h-full cursor-pointer overflow-hidden rounded-2xl"
+        max={5}
+      >
       <div className={wide ? 'grid items-stretch md:grid-cols-2' : ''}>
         {/* cover */}
-        <div
+        <motion.div
+          layoutId={`cover-${project.id}`}
           className={`relative overflow-hidden p-4 ${wide ? 'md:order-last md:p-6' : ''}`}
           style={{ background: `hsl(${project.hue} 55% 50% / 0.05)` }}
         >
@@ -125,15 +129,16 @@ const ProjectCard = forwardRef(function ProjectCard(
               wide ? 'h-52 md:h-full md:min-h-[240px]' : 'h-40'
             }`}
           />
-        </div>
+        </motion.div>
 
         {/* body */}
         <div className="p-6 sm:p-7">
           {/* Icon shares the title's line so the meta badges stop floating in
               the middle of the card with nothing to align against. */}
           <div className="flex items-start gap-3.5">
-            <span
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+            <motion.span
+              layoutId={`badge-${project.id}`}
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
               style={{
                 background: `hsl(${project.hue} 60% 50% / 0.12)`,
                 color: `hsl(${project.hue} 65% 55%)`,
@@ -141,7 +146,7 @@ const ProjectCard = forwardRef(function ProjectCard(
               }}
             >
               <Icon size={21} />
-            </span>
+            </motion.span>
 
             <div className="min-w-0 flex-1">
               <h3 className="text-lg font-bold leading-tight tracking-tight transition-colors group-hover:text-brand sm:text-xl">
@@ -189,6 +194,7 @@ const ProjectCard = forwardRef(function ProjectCard(
           </span>
         </div>
       </div>
+      </Tilt>
     </motion.article>
   )
 })
@@ -244,7 +250,9 @@ function ProjectModal({ project, onClose, t }) {
                 <X size={17} />
               </button>
 
-              <span
+              {/* same layoutId as the card badge, so it flies into place */}
+              <motion.span
+                layoutId={`badge-${project.id}`}
                 className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl"
                 style={{
                   background: `hsl(${project.hue} 60% 50% / 0.15)`,
@@ -253,7 +261,7 @@ function ProjectModal({ project, onClose, t }) {
                 }}
               >
                 <Icon size={24} />
-              </span>
+              </motion.span>
 
               <span className="text-[12.5px] font-semibold uppercase tracking-[0.16em] text-text-4">
                 {t.projects.labels.caseStudy}
@@ -265,11 +273,17 @@ function ProjectModal({ project, onClose, t }) {
             </div>
 
             <div className="px-7 pb-9 sm:px-9">
-              <ProjectVisual
-                variant={project.visual}
-                hue={project.hue}
-                className="mb-8 h-48 sm:h-60"
-              />
+              <motion.div
+                layoutId={`cover-${project.id}`}
+                className="mb-8 overflow-hidden rounded-2xl p-3"
+                style={{ background: `hsl(${project.hue} 55% 50% / 0.05)` }}
+              >
+                <ProjectVisual
+                  variant={project.visual}
+                  hue={project.hue}
+                  className="h-48 sm:h-60"
+                />
+              </motion.div>
 
               <div className="space-y-7">
                 <Block

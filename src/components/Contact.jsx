@@ -3,6 +3,7 @@ import { Check, Copy, Mail, MapPin, MessageCircle, Phone, Send } from './icons'
 import { useI18n } from '../app/providers'
 import { contact } from '../data/structure'
 import { Reveal, Section, SectionHeading } from './ui'
+import { Magnetic } from './motion/primitives'
 
 export default function Contact() {
   const { t } = useI18n()
@@ -97,25 +98,29 @@ export default function Contact() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a
-                    href={`https://wa.me/${contact.whatsapp}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-primary"
-                  >
-                    <MessageCircle size={17} />
-                    {t.contact.panel.whatsappCta}
-                  </a>
+                  <Magnetic strength={0.4}>
+                    <a
+                      href={`https://wa.me/${contact.whatsapp}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-primary"
+                    >
+                      <MessageCircle size={17} />
+                      {t.contact.panel.whatsappCta}
+                    </a>
+                  </Magnetic>
 
-                  <a
-                    href={`mailto:${contact.email}?subject=${encodeURIComponent(
-                      t.contact.panel.emailSubject
-                    )}`}
-                    className="btn-ghost"
-                  >
-                    <Send size={16} className="text-brand" />
-                    {t.contact.panel.emailCta}
-                  </a>
+                  <Magnetic strength={0.4}>
+                    <a
+                      href={`mailto:${contact.email}?subject=${encodeURIComponent(
+                        t.contact.panel.emailSubject
+                      )}`}
+                      className="btn-ghost"
+                    >
+                      <Send size={16} className="text-brand" />
+                      {t.contact.panel.emailCta}
+                    </a>
+                  </Magnetic>
                 </div>
 
                 <p className="mt-7 border-t border-border pt-6 text-xs text-text-4">

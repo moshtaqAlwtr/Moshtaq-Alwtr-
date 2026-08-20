@@ -2,6 +2,7 @@ import { getIcon } from './icons'
 import { useI18n } from '../app/providers'
 import { servicesMeta } from '../data/structure'
 import { Reveal, Section, SectionHeading } from './ui'
+import { Tilt } from './motion/primitives'
 
 export default function Services() {
   const { t } = useI18n()
@@ -23,7 +24,7 @@ export default function Services() {
 
             return (
               <Reveal key={service.id} delay={0.05 * i}>
-                <div className="card card-hover edge-glow group relative h-full overflow-hidden rounded-2xl p-6 sm:p-7">
+                <Tilt className="card card-hover edge-glow group relative h-full overflow-hidden rounded-2xl p-6 sm:p-7" max={6}>
                   <span className="pointer-events-none absolute end-6 top-6 font-mono text-lg font-bold text-text-4/50 transition-colors duration-300 group-hover:text-brand">
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -37,7 +38,7 @@ export default function Services() {
                       {copy.desc}
                     </p>
                   </div>
-                </div>
+                </Tilt>
               </Reveal>
             )
           })}
