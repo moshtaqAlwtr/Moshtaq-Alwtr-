@@ -6,9 +6,10 @@
   "homepage": "https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "build:client": "vite build"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",

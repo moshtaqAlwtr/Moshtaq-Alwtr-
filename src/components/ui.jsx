@@ -72,7 +72,10 @@ export function SectionHeading({ index, eyebrow, title, desc }) {
 export function CountUp({ value, suffix = '', duration = 1500 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
-  const [display, setDisplay] = useState(0)
+  // The server render has no effects, so starting at 0 there would bake "0
+  // projects delivered" into the crawlable HTML. Ship the real figure from the
+  // server and let the client start at zero and count up.
+  const [display, setDisplay] = useState(typeof window === 'undefined' ? value : 0)
 
   useEffect(() => {
     if (!inView) return

@@ -29,13 +29,7 @@ export default function Statement() {
           {t.statement.eyebrow}
         </span>
 
-        {/* Words are split into separate spans to light individually, which
-            leaves the DOM text with no spaces — so the sentence is restated on
-            the paragraph and the pieces hidden from assistive tech. */}
-        <p
-          aria-label={t.statement.text}
-          className="max-w-4xl text-[1.6rem] font-bold leading-[1.6] tracking-tight sm:text-[2.1rem] md:text-[2.5rem]"
-        >
+        <p className="max-w-4xl text-[1.6rem] font-bold leading-[1.6] tracking-tight sm:text-[2.1rem] md:text-[2.5rem]">
           {words.map((word, i) => (
             <Word
               key={i}
@@ -62,16 +56,14 @@ function Word({ children, progress, range, reduced }) {
   // slice starts so the sentence reads ahead of the scroll rather than lagging.
   const opacity = useTransform(progress, range, [0.18, 1])
 
-  if (reduced)
-    return (
-      <span aria-hidden className="me-[0.28em] inline-block">
-        {children}
-      </span>
-    )
+  // The space lives inside the span rather than coming from a margin, so the
+  // DOM text stays a real sentence — margins are invisible to a crawler and to
+  // anyone copying the line, which would leave it as one run-on word.
+  if (reduced) return <span className="inline-block">{children}&nbsp;</span>
 
   return (
-    <motion.span aria-hidden style={{ opacity }} className="me-[0.28em] inline-block">
-      {children}
+    <motion.span style={{ opacity }} className="inline-block">
+      {children}&nbsp;
     </motion.span>
   )
 }
