@@ -21,6 +21,20 @@ export default function Projects() {
 
   const openProject = projectsMeta.find((p) => p.id === openId) ?? null
 
+  /**
+   * Which cards span the full row.
+   *
+   * The unfiltered list opens with a spotlight card. Whatever follows sits in
+   * a two-up grid, so an odd remainder would leave a lone card next to a gap —
+   * the final card spans instead, which also bookends the section.
+   */
+  const isWide = (i) => {
+    const spotlight = filter === 'all' && i === 0
+    if (spotlight) return true
+    const remainder = filter === 'all' ? visible.length - 1 : visible.length
+    return i === visible.length - 1 && remainder % 2 === 1
+  }
+
   return (
     <Section id="projects">
       <div className="container-x">
@@ -61,9 +75,7 @@ export default function Projects() {
                 key={project.id}
                 project={project}
                 index={i}
-                /* The first card of an unfiltered list runs full width as a
-                   spotlight; filtered views stay on a plain two-up grid. */
-                wide={i === 0 && filter === 'all'}
+                wide={isWide(i)}
                 onOpen={() => setOpenId(project.id)}
                 t={t}
                 isRTL={isRTL}

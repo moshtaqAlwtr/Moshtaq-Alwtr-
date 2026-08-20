@@ -201,6 +201,24 @@ export default {
           'Financial reports with Excel and PDF export',
         ],
       },
+      aqdi: {
+        title: 'Aqdi — contracts platform',
+        subtitle: 'Digital contracts & dispute resolution',
+        summary:
+          'A platform where two parties draft and sign a digital contract, and if a dispute arises, accredited lawyers on the platform take the case and track it through to closure.',
+        problem:
+          'Contracts between individuals and small businesses are improvised or left verbal, so when a disagreement surfaces neither side has a clear document to stand on — and finding a lawyer and following the case starts from zero.',
+        solution:
+          'I built a two-sided platform. The user side generates the contract from templates matched to the agreement type and records consent from both parties with an electronic signature and a timestamped history of every amendment. The lawyer side is a dashboard where disputes are assigned and hearings, documents and case status are tracked through to closure.',
+        features: [
+          'Contract templates matched to the agreement type',
+          'Electronic signature with documented consent from both parties',
+          'Timestamped history of every amendment',
+          'Raise a dispute and assign it to a specialist lawyer',
+          'Lawyer dashboard for cases and hearings',
+          'Alerts for payment due dates and contract expiry',
+        ],
+      },
       ecommerce: {
         title: 'E-commerce store',
         subtitle: 'Full online retail platform',

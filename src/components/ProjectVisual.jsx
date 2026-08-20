@@ -348,12 +348,99 @@ function Store({ hue }) {
   )
 }
 
+function Contract({ hue }) {
+  return (
+    <Frame hue={hue}>
+      <div className="flex h-full items-stretch gap-3 p-4">
+        {/* the contract sheet: clauses above, two signature blocks below */}
+        <div
+          className="flex min-w-0 flex-[1.5] flex-col rounded-lg p-3"
+          style={{ background: tint(hue, 45, 55, 0.08), border: `1px solid ${line}` }}
+        >
+          <div className="mb-2 flex items-center justify-between">
+            <Bar w={54} h={5} hue={hue} o={0.5} />
+            <span
+              className="h-4 w-4 rounded-full"
+              style={{ background: tint(hue, 65, 55, 0.35) }}
+            />
+          </div>
+
+          <div className="flex-1 space-y-1.5">
+            {['92%', '78%', '86%', '64%'].map((w, i) => (
+              <Bar key={i} w={w} h={3} hue={hue} o={0.22} />
+            ))}
+          </div>
+
+          {/* both parties signed */}
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            {[0, 1].map((i) => (
+              <div key={i} className="space-y-1">
+                <svg viewBox="0 0 60 14" className="h-3.5 w-full">
+                  <path
+                    d={
+                      i === 0
+                        ? 'M2 10 q6 -9 11 -1 t9 -1 q5 6 10 -3 t12 2'
+                        : 'M2 9 q5 -7 10 0 t8 -3 q6 7 11 -2 t13 3'
+                    }
+                    fill="none"
+                    stroke={tint(hue, 70, 55, 0.85)}
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <span
+                  className="block h-px w-full"
+                  style={{ background: tint(hue, 40, 55, 0.3) }}
+                />
+                <Bar w="55%" h={2.5} hue={hue} o={0.3} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* lawyer side: case rows with status dots */}
+        <div
+          className="flex min-w-0 flex-1 flex-col gap-2 rounded-lg p-3"
+          style={{ background: tint(hue, 45, 55, 0.05), border: `1px solid ${line}` }}
+        >
+          <div className="flex items-center gap-1.5">
+            <span
+              className="h-5 w-5 shrink-0 rounded-md"
+              style={{ background: tint(hue, 65, 55, 0.4) }}
+            />
+            <Bar w="60%" h={4} hue={hue} o={0.35} />
+          </div>
+
+          {[
+            { w: '85%', o: 0.9 },
+            { w: '70%', o: 0.55 },
+            { w: '78%', o: 0.35 },
+          ].map((row, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-1.5 rounded-md p-1.5"
+              style={{ background: tint(hue, 50, 55, 0.07) }}
+            >
+              <span
+                className="h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{ background: tint(hue, 70, 55, row.o) }}
+              />
+              <Bar w={row.w} h={3} hue={hue} o={0.25} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </Frame>
+  )
+}
+
 const VARIANTS = {
   dashboard: Dashboard,
   factory: FactoryLine,
   map: MapTracking,
   subscriptions: Subscriptions,
   store: Store,
+  contract: Contract,
 }
 
 export default function ProjectVisual({ variant, hue = 258, className = '' }) {

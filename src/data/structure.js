@@ -27,7 +27,7 @@ export const sectionIds = [
 export const statsMeta = [
   { id: 'years', value: 5, suffix: '+' },
   { id: 'projects', value: 30, suffix: '+' },
-  { id: 'systems', value: 5, suffix: '' },
+  { id: 'systems', value: 6, suffix: '' },
   { id: 'delivery', value: 100, suffix: '%' },
 ]
 
@@ -122,6 +122,15 @@ export const projectsMeta = [
     visual: 'subscriptions',
     hue: 42,
     stack: ['Laravel', 'React', 'React Native', 'MySQL'],
+  },
+  {
+    id: 'aqdi',
+    icon: 'FileSignature',
+    category: 'platforms',
+    featured: true,
+    visual: 'contract',
+    hue: 258,
+    stack: ['Laravel', 'React', 'MySQL', 'REST API'],
   },
   {
     id: 'ecommerce',

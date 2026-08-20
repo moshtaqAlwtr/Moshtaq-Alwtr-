@@ -124,7 +124,7 @@ const { t, lang, toggleLang, isRTL } = useI18n()
   icon: 'Receipt',        // اسم أيقونة من src/components/icons.js
   category: 'systems',    // يجب أن يوجد له مفتاح في projects.filters
   featured: true,
-  visual: 'dashboard',    // dashboard | factory | map | subscriptions | store
+  visual: 'dashboard',    // dashboard | factory | map | subscriptions | store | contract
   hue: 258,               // درجة لون البطاقة (0-360)
   stack: ['Laravel', 'React'],
 }
@@ -170,7 +170,7 @@ src/
 
 بطاقات المشاريع لا تستخدم صوراً — بل مخططات UI مرسومة بـ CSS و SVG من متغيّرات
 الثيم، فتتكيّف مع الوضعين ولا تضيف أي حجم تحميل. المتاح حالياً:
-`dashboard`, `factory`, `map`, `subscriptions`, `store`.
+`dashboard`, `factory`, `map`, `subscriptions`, `store`, `contract`.
 
 ### إذا ظهر خطأ ``The `bg-bg` class does not exist``
 
