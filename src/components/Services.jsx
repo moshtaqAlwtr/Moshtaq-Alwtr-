@@ -24,7 +24,7 @@ export default function Services() {
             return (
               <Reveal key={service.id} delay={0.05 * i}>
                 <div className="card card-hover edge-glow group relative h-full overflow-hidden rounded-2xl p-6 sm:p-7">
-                  <span className="pointer-events-none absolute -top-6 -end-2 font-mono text-6xl font-bold text-text/[0.035] transition-colors duration-300 group-hover:text-brand/[0.09]">
+                  <span className="pointer-events-none absolute end-6 top-6 font-mono text-lg font-bold text-text-4/50 transition-colors duration-300 group-hover:text-brand">
                     {String(i + 1).padStart(2, '0')}
                   </span>
 
@@ -33,7 +33,7 @@ export default function Services() {
                       <Icon size={20} />
                     </div>
                     <h3 className="text-base font-bold tracking-tight">{copy.title}</h3>
-                    <p className="mt-2.5 text-[13.5px] leading-relaxed text-text-3">
+                    <p className="mt-2.5 text-[15px] leading-relaxed text-text-3">
                       {copy.desc}
                     </p>
                   </div>

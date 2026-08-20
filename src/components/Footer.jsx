@@ -21,7 +21,7 @@ export default function Footer() {
       <div className="container-x">
         <div className="grid gap-10 pb-12 md:grid-cols-[1.5fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2.5 text-[15px] font-extrabold tracking-tight">
+            <div className="flex items-center gap-2.5 text-[16.5px] font-extrabold tracking-tight">
               <span className="brand-fill flex h-9 w-9 items-center justify-center rounded-xl">
                 <Code2 size={17} strokeWidth={2.6} />
               </span>
@@ -29,7 +29,7 @@ export default function Footer() {
               <span className="brand-text">{t.profile.lastName}</span>
             </div>
 
-            <p className="mt-4 max-w-sm text-[13.5px] leading-[1.9] text-text-3">
+            <p className="mt-4 max-w-sm text-[15px] leading-[1.9] text-text-3">
               {t.hero.tagline}
             </p>
 
@@ -50,13 +50,13 @@ export default function Footer() {
           </div>
 
           <nav>
-            <h4 className="mb-4 text-[13px] font-bold">{t.footer.quickLinks}</h4>
+            <h4 className="mb-4 text-[14.5px] font-bold">{t.footer.quickLinks}</h4>
             <ul className="space-y-2.5">
               {sectionIds.map((id) => (
                 <li key={id}>
                   <button
                     onClick={() => go(id)}
-                    className="text-[13.5px] text-text-3 transition-colors hover:text-brand"
+                    className="text-[15px] text-text-3 transition-colors hover:text-brand"
                   >
                     {t.nav[id]}
                   </button>
@@ -66,8 +66,8 @@ export default function Footer() {
           </nav>
 
           <div>
-            <h4 className="mb-4 text-[13px] font-bold">{t.footer.contactHeading}</h4>
-            <ul className="space-y-3 text-[13.5px] text-text-3">
+            <h4 className="mb-4 text-[14.5px] font-bold">{t.footer.contactHeading}</h4>
+            <ul className="space-y-3 text-[15px] text-text-3">
               <li>
                 <a
                   href={`mailto:${contact.email}`}

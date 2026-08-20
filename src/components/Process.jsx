@@ -36,7 +36,7 @@ export default function Process() {
                 <Reveal key={stepId} delay={0.04 * i}>
                   <li className="group relative flex gap-5">
                     <span
-                      className="relative z-10 hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-bg font-mono text-[13px] font-bold text-text-3 transition-all duration-300 group-hover:border-brand/40 group-hover:bg-brand/10 group-hover:text-brand sm:flex"
+                      className="relative z-10 hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-bg font-mono text-[14.5px] font-bold text-text-3 transition-all duration-300 group-hover:border-brand/40 group-hover:bg-brand/10 group-hover:text-brand sm:flex"
                       aria-hidden
                     >
                       {String(i + 1).padStart(2, '0')}
@@ -44,12 +44,12 @@ export default function Process() {
 
                     <div className="card card-hover edge-glow flex-1 rounded-2xl p-5 sm:p-6">
                       <div className="mb-2 flex items-center gap-3">
-                        <span className="font-mono text-[13px] font-bold text-brand sm:hidden">
+                        <span className="font-mono text-[14.5px] font-bold text-brand sm:hidden">
                           {String(i + 1).padStart(2, '0')}
                         </span>
                         <h3 className="text-base font-bold tracking-tight">{copy.title}</h3>
                       </div>
-                      <p className="text-[13.5px] leading-[1.85] text-text-3">{copy.desc}</p>
+                      <p className="text-[15px] leading-[1.85] text-text-3">{copy.desc}</p>
                     </div>
                   </li>
                 </Reveal>

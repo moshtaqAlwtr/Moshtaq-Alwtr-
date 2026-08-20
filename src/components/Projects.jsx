@@ -37,7 +37,7 @@ export default function Projects() {
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`relative rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors ${
+              className={`relative rounded-full px-4 py-1.5 text-[14.5px] font-semibold transition-colors ${
                 filter === cat ? 'text-brand-contrast' : 'text-text-3 hover:text-text'
               }`}
             >
@@ -117,7 +117,9 @@ const ProjectCard = forwardRef(function ProjectCard(
 
         {/* body */}
         <div className="p-6 sm:p-7">
-          <div className="mb-5 flex items-start justify-between gap-3">
+          {/* Icon shares the title's line so the meta badges stop floating in
+              the middle of the card with nothing to align against. */}
+          <div className="flex items-start gap-3.5">
             <span
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
               style={{
@@ -129,31 +131,34 @@ const ProjectCard = forwardRef(function ProjectCard(
               <Icon size={21} />
             </span>
 
-            <div className="flex flex-wrap items-center justify-end gap-1.5">
-              {project.featured && (
-                <span className="chip !px-2.5 !py-0.5 !text-[10.5px]">
-                  <Star size={10} fill="currentColor" />
-                  {t.projects.labels.featured}
-                </span>
-              )}
-              <span className="rounded-full border border-border px-2.5 py-0.5 text-[10.5px] font-medium text-text-3">
-                {t.projects.filters[project.category]}
-              </span>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-lg font-bold leading-tight tracking-tight transition-colors group-hover:text-brand sm:text-xl">
+                {copy.title}
+              </h3>
+              <p className="mt-1 text-[14.5px] text-text-4">{copy.subtitle}</p>
             </div>
+
+            {project.featured && (
+              <span
+                className="shrink-0 pt-1 text-brand"
+                title={t.projects.labels.featured}
+                aria-label={t.projects.labels.featured}
+              >
+                <Star size={15} fill="currentColor" />
+              </span>
+            )}
           </div>
 
-          <h3 className="text-lg font-bold tracking-tight transition-colors group-hover:text-brand sm:text-xl">
-            {copy.title}
-          </h3>
-          <p className="mt-1 text-[13px] text-text-4">{copy.subtitle}</p>
+          <p className="mt-4 text-[15.5px] leading-[1.85] text-text-3">{copy.summary}</p>
 
-          <p className="mt-4 text-[14px] leading-[1.85] text-text-3">{copy.summary}</p>
-
-          <div className="mt-5 flex flex-wrap gap-1.5">
+          <div className="mt-5 flex flex-wrap items-center gap-1.5">
+            <span className="rounded-md bg-brand/10 px-2 py-0.5 text-[12.5px] font-semibold text-brand">
+              {t.projects.filters[project.category]}
+            </span>
             {project.stack.map((tech) => (
               <span
                 key={tech}
-                className="rounded-md border border-border bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-text-3"
+                className="rounded-md border border-border bg-surface-2 px-2 py-0.5 font-mono text-[12.5px] text-text-3"
                 dir="ltr"
               >
                 {tech}
@@ -161,7 +166,7 @@ const ProjectCard = forwardRef(function ProjectCard(
             ))}
           </div>
 
-          <span className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-bold text-brand">
+          <span className="mt-6 inline-flex items-center gap-1.5 text-[14.5px] font-bold text-brand">
             {t.projects.labels.details}
             <ArrowUpRight
               size={15}
@@ -238,7 +243,7 @@ function ProjectModal({ project, onClose, t }) {
                 <Icon size={24} />
               </span>
 
-              <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-4">
+              <span className="text-[12.5px] font-semibold uppercase tracking-[0.16em] text-text-4">
                 {t.projects.labels.caseStudy}
               </span>
               <h3 className="mt-1.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
@@ -269,7 +274,7 @@ function ProjectModal({ project, onClose, t }) {
                 />
 
                 <div>
-                  <h4 className="mb-4 flex items-center gap-2 text-[15px] font-bold">
+                  <h4 className="mb-4 flex items-center gap-2 text-[16.5px] font-bold">
                     <ListChecks size={16} style={{ color: `hsl(${project.hue} 65% 55%)` }} />
                     {t.projects.labels.features}
                   </h4>
@@ -277,7 +282,7 @@ function ProjectModal({ project, onClose, t }) {
                     {copy.features.map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-start gap-2.5 rounded-xl border border-border bg-surface-2 px-3.5 py-2.5 text-[13.5px] text-text-2"
+                        className="flex items-start gap-2.5 rounded-xl border border-border bg-surface-2 px-3.5 py-2.5 text-[15px] text-text-2"
                       >
                         <Check
                           size={14}
@@ -291,7 +296,7 @@ function ProjectModal({ project, onClose, t }) {
                 </div>
 
                 <div>
-                  <h4 className="mb-4 flex items-center gap-2 text-[15px] font-bold">
+                  <h4 className="mb-4 flex items-center gap-2 text-[16.5px] font-bold">
                     <Layers size={16} style={{ color: `hsl(${project.hue} 65% 55%)` }} />
                     {t.projects.labels.stack}
                   </h4>
@@ -320,11 +325,11 @@ function Block({ iconName, color, title, text }) {
   const Icon = getIcon(iconName)
   return (
     <div>
-      <h4 className="mb-3 flex items-center gap-2 text-[15px] font-bold">
+      <h4 className="mb-3 flex items-center gap-2 text-[16.5px] font-bold">
         <Icon size={16} style={{ color }} />
         {title}
       </h4>
-      <p className="text-[14px] leading-[1.9] text-text-3">{text}</p>
+      <p className="text-[15.5px] leading-[1.9] text-text-3">{text}</p>
     </div>
   )
 }

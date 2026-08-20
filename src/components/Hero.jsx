@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, MapPin, MessageCircle } from './icons'
+import { ArrowUpRight, MapPin, MessageCircle } from './icons'
 import { useI18n } from '../app/providers'
 import { contact, statsMeta, techMarquee } from '../data/structure'
 import { CountUp, Particles, Typewriter } from './ui'
@@ -20,8 +20,8 @@ export default function Hero() {
     <section id="home" className="relative overflow-hidden pt-[68px]">
       <Particles />
 
-      <div className="container-x py-16 sm:py-24 lg:py-28">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+      <div className="container-x py-12 sm:py-16 lg:py-20">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
           {/* ---------------------------------------------------------- copy */}
           <div>
             <motion.span {...rise(0)} className="chip">
@@ -34,7 +34,7 @@ export default function Hero() {
 
             <motion.h1
               {...rise(0.08)}
-              className="mt-6 text-[2.15rem] font-extrabold leading-[1.2] tracking-tight sm:text-5xl lg:text-[3.4rem]"
+              className="mt-6 text-[2.5rem] font-extrabold leading-[1.18] tracking-tight sm:text-5xl lg:text-[3.85rem]"
             >
               <span className="block text-text-2">{t.hero.greeting}</span>
               <span className="brand-text">{t.profile.name}</span>
@@ -42,19 +42,19 @@ export default function Hero() {
 
             <motion.p
               {...rise(0.16)}
-              className="mt-5 min-h-[1.8em] text-lg font-semibold text-text-2 sm:text-xl"
+              className="mt-4 min-h-[1.5em] text-lg font-semibold text-text-2 sm:text-xl"
             >
               <Typewriter words={t.profile.roles} />
             </motion.p>
 
             <motion.p
               {...rise(0.24)}
-              className="mt-6 max-w-xl text-[15px] leading-[1.9] text-text-3 sm:text-base"
+              className="mt-5 max-w-xl text-base leading-[1.85] text-text-3"
             >
               {t.hero.tagline}
             </motion.p>
 
-            <motion.div {...rise(0.32)} className="mt-9 flex flex-wrap items-center gap-3">
+            <motion.div {...rise(0.32)} className="mt-8 flex flex-wrap items-center gap-3">
               <button onClick={() => go('projects')} className="btn-primary">
                 {t.hero.viewWork}
                 <ArrowUpRight size={17} className={isRTL ? '-scale-x-100' : ''} />
@@ -112,7 +112,7 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="card absolute -bottom-4 -start-4 rounded-2xl bg-surface px-4 py-3 font-mono text-[11px] leading-relaxed shadow-lg sm:text-xs"
+                className="card absolute -bottom-4 -start-4 rounded-2xl bg-surface px-4 py-3 font-mono text-[12.5px] leading-relaxed shadow-lg sm:text-xs"
               >
                 {/* dir stays on the inner node: putting it on the positioned
                     element would make -start-4 resolve LTR inside an RTL page. */}
@@ -131,7 +131,7 @@ export default function Hero() {
                 className="card absolute -top-3 -end-3 rounded-2xl bg-surface px-4 py-2.5 text-center shadow-lg"
               >
                 <div className="brand-text text-xl font-extrabold">5+</div>
-                <div className="text-[10px] text-text-3">{t.hero.experienceBadge}</div>
+                <div className="text-[11.5px] text-text-3">{t.hero.experienceBadge}</div>
               </motion.div>
             </div>
           </motion.div>
@@ -140,7 +140,7 @@ export default function Hero() {
         {/* ---------------------------------------------------------- stats */}
         <motion.dl
           {...rise(0.5)}
-          className="card mt-16 grid grid-cols-2 rounded-2xl lg:grid-cols-4"
+          className="card mt-14 grid grid-cols-2 rounded-2xl lg:grid-cols-4"
         >
           {statsMeta.map((s, i) => (
             <div
@@ -166,7 +166,7 @@ export default function Hero() {
           {[...techMarquee, ...techMarquee].map((tech, i) => (
             <span
               key={i}
-              className="whitespace-nowrap font-mono text-[13px] text-text-4 transition-colors hover:text-brand"
+              className="whitespace-nowrap font-mono text-[14.5px] text-text-4 transition-colors hover:text-brand"
               dir="ltr"
             >
               {tech}
@@ -175,13 +175,6 @@ export default function Hero() {
         </div>
       </div>
 
-      <button
-        onClick={() => go('about')}
-        aria-label={t.ui.scroll}
-        className="absolute bottom-24 left-1/2 hidden -translate-x-1/2 animate-sweep text-text-4 transition-colors hover:text-brand xl:block"
-      >
-        <ArrowDown size={20} />
-      </button>
     </section>
   )
 }

@@ -25,7 +25,7 @@ export function ThemeProvider({ children }) {
     document.documentElement.setAttribute('data-theme', theme)
     document.querySelector('meta[name="theme-color"]')?.setAttribute(
       'content',
-      theme === 'dark' ? '#08080c' : '#fcfcfd'
+      theme === 'dark' ? '#0c0a09' : '#fdfcfb'
     )
     try {
       localStorage.setItem(THEME_KEY, theme)

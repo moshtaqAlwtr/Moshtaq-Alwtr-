@@ -24,7 +24,7 @@ export function Section({ id, children, tinted = false, className = '' }) {
   return (
     <section
       id={id}
-      className={`relative scroll-mt-24 py-20 sm:py-28 ${tinted ? 'bg-bg-soft' : ''} ${className}`}
+      className={`relative scroll-mt-24 py-14 sm:py-18 lg:py-22 ${tinted ? 'bg-bg-soft' : ''} ${className}`}
     >
       {children}
     </section>
@@ -38,38 +38,29 @@ export function Section({ id, children, tinted = false, className = '' }) {
  * stacking a centred chip + bar + text, which keeps the vertical rhythm tighter
  * and gives every section a consistent left/right anchor.
  */
-export function SectionHeading({ index, eyebrow, title, desc, align = 'start' }) {
-  const centered = align === 'center'
-
+export function SectionHeading({ index, eyebrow, title, desc }) {
   return (
-    <Reveal className={`mb-12 sm:mb-16 ${centered ? 'text-center' : ''}`}>
-      <div
-        className={`flex items-center gap-3 ${centered ? 'justify-center' : ''}`}
-      >
+    <Reveal className="mb-10 sm:mb-12">
+      <div className="flex items-center gap-3">
         {index && (
-          <span className="font-mono text-xs font-medium text-brand">{index}</span>
+          <span className="font-mono text-xs font-semibold text-brand">{index}</span>
         )}
         <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-3">
           {eyebrow}
         </span>
-        <span
-          className={`h-px flex-1 bg-border ${centered ? 'max-w-[60px]' : 'max-w-[160px]'}`}
-        />
+        <span className="h-px flex-1 bg-border" />
       </div>
 
-      <h2 className="mt-5 max-w-3xl text-[1.75rem] font-extrabold leading-[1.3] tracking-tight sm:text-4xl md:text-[2.6rem]">
-        {title}
-      </h2>
-
-      {desc && (
-        <p
-          className={`mt-4 max-w-2xl text-[15px] leading-relaxed text-text-3 sm:text-base ${
-            centered ? 'mx-auto' : ''
-          }`}
-        >
-          {desc}
-        </p>
-      )}
+      {/* Title and copy split the row so the heading block spans the same
+          width as the cards beneath it. */}
+      <div className="mt-6 grid gap-x-12 gap-y-3 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-end">
+        <h2 className="text-[2.05rem] font-extrabold leading-[1.25] tracking-tight sm:text-4xl md:text-[2.7rem]">
+          {title}
+        </h2>
+        {desc && (
+          <p className="text-base leading-relaxed text-text-3 lg:pb-2">{desc}</p>
+        )}
+      </div>
     </Reveal>
   )
 }
@@ -180,7 +171,7 @@ export function Ambient() {
       <div className="absolute inset-0 bg-bg transition-colors duration-500" />
       <div className="absolute inset-0 grid-bg" />
       <div
-        className="orb animate-drift opacity-70 dark:opacity-100"
+        className="orb animate-drift opacity-35 dark:opacity-55"
         style={{
           top: '-12%',
           insetInlineEnd: '-8%',
@@ -190,7 +181,7 @@ export function Ambient() {
         }}
       />
       <div
-        className="orb animate-drift opacity-70 dark:opacity-100"
+        className="orb animate-drift opacity-35 dark:opacity-55"
         style={{
           top: '38%',
           insetInlineStart: '-12%',
@@ -201,7 +192,7 @@ export function Ambient() {
         }}
       />
       <div
-        className="orb animate-drift opacity-70 dark:opacity-100"
+        className="orb animate-drift opacity-35 dark:opacity-55"
         style={{
           bottom: '-14%',
           insetInlineEnd: '18%',

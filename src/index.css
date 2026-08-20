@@ -15,24 +15,27 @@
 [data-theme='dark'] {
   color-scheme: dark;
 
-  --bg: 8 8 12;
-  --bg-soft: 13 13 19;
-  --surface: 20 20 28;
-  --surface-2: 27 27 37;
-  --border: 38 38 49;
-  --border-strong: 55 55 70;
+  /* Warm charcoal ground — a neutral grey would fight the copper accent. */
+  --bg: 12 10 9;
+  --bg-soft: 19 17 16;
+  --surface: 28 25 23;
+  --surface-2: 38 34 32;
+  --border: 51 46 43;
+  --border-strong: 74 66 62;
 
-  --text: 244 244 247;
-  --text-2: 184 184 198;
-  --text-3: 130 130 146;
-  --text-4: 92 92 106;
+  --text: 250 248 246;
+  --text-2: 196 188 182;
+  --text-3: 148 139 133;
+  --text-4: 107 98 93;
 
-  --brand: 139 124 255;
-  --brand-2: 77 163 255;
-  --brand-3: 255 180 68;
-  --brand-contrast: 10 10 16;
+  --brand: 255 143 63;
+  --brand-2: 255 93 115;
+  --brand-3: 255 209 102;
+  /* Dark ink on the copper gradient: 8.2:1 against #FF8F3F, 6.3:1 at the
+     coral end. White would only reach 2.5:1. */
+  --brand-contrast: 26 15 8;
 
-  --ring: 139 124 255;
+  --ring: 255 143 63;
   --shadow-color: 0 0 0;
   --shadow-strength: 0.55;
 
@@ -46,24 +49,28 @@
 [data-theme='light'] {
   color-scheme: light;
 
-  --bg: 252 252 253;
-  --bg-soft: 244 244 248;
+  --bg: 253 252 251;
+  --bg-soft: 246 243 241;
   --surface: 255 255 255;
-  --surface-2: 248 248 251;
-  --border: 228 228 236;
-  --border-strong: 208 208 220;
+  --surface-2: 250 247 245;
+  --border: 233 227 223;
+  --border-strong: 214 204 198;
 
-  --text: 16 16 24;
-  --text-2: 71 71 88;
-  --text-3: 110 110 128;
-  --text-4: 150 150 168;
+  --text: 28 25 23;
+  --text-2: 87 80 75;
+  --text-3: 122 113 107;
+  --text-4: 166 156 149;
 
-  --brand: 105 84 226;
-  --brand-2: 32 118 214;
-  --brand-3: 199 122 0;
+  /* Deepened for contrast on white (5.1:1, 4.9:1, 4.9:1) — the dark-mode
+     copper would only reach 2.3:1 here. brand-2 stays on the amber side of
+     the wheel rather than rose: darkening both stops far enough for white
+     collapses them into the same crimson and the copper reads as red. */
+  --brand: 194 65 12;
+  --brand-2: 180 83 9;
+  --brand-3: 161 98 7;
   --brand-contrast: 255 255 255;
 
-  --ring: 105 84 226;
+  --ring: 194 65 12;
   --shadow-color: 24 24 40;
   --shadow-strength: 0.09;
 

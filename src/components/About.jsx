@@ -37,7 +37,7 @@ export default function About() {
 
               <div className="space-y-5">
                 {t.about.bio.map((paragraph, i) => (
-                  <p key={i} className="text-[15px] leading-[1.95] text-text-2">
+                  <p key={i} className="text-[16.5px] leading-[1.95] text-text-2">
                     {paragraph}
                   </p>
                 ))}
@@ -77,7 +77,7 @@ export default function About() {
                       <Icon size={20} />
                     </div>
                     <h3 className="text-base font-bold tracking-tight">{copy.title}</h3>
-                    <p className="mt-2.5 text-[13.5px] leading-relaxed text-text-3">
+                    <p className="mt-2.5 text-[15px] leading-relaxed text-text-3">
                       {copy.desc}
                     </p>
                   </div>

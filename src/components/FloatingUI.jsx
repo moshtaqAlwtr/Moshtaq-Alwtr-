@@ -73,7 +73,7 @@ export function SectionRail() {
             }`}
           />
           <span
-            className={`text-[11px] font-semibold transition-all duration-300 ${
+            className={`text-[12.5px] font-semibold transition-all duration-300 ${
               active === id
                 ? 'text-brand opacity-100'
                 : 'text-text-4 opacity-0 group-hover:opacity-100'

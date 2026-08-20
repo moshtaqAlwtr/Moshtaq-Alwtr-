@@ -8,7 +8,7 @@ import Services from './components/Services'
 import Process from './components/Process'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import { FloatingActions, ScrollProgress, SectionRail } from './components/FloatingUI'
+import { FloatingActions, ScrollProgress } from './components/FloatingUI'
 import { Ambient } from './components/ui'
 
 function Site() {
@@ -21,7 +21,6 @@ function Site() {
       <Ambient />
       <ScrollProgress />
       <Navbar />
-      <SectionRail />
 
       <main>
         <Hero />

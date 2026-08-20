@@ -7,9 +7,9 @@
  */
 
 export const contact = {
-  email: 'moshtaqkaidalwtr@gmail.com',
-  phone: '+966534781240',
-  whatsapp: '966534781240',
+  email: 'moshtaqkaid6@gmail.com',
+  phone: '+966535319612',
+  whatsapp: '966535319612',
   github: 'https://github.com/moshtaqalwtr',
 }
 
@@ -93,7 +93,7 @@ export const projectsMeta = [
     category: 'systems',
     featured: true,
     visual: 'dashboard',
-    hue: 258,
+    hue: 22,
     stack: ['Laravel', 'React', 'MySQL', 'REST API', 'TailwindCSS'],
   },
   {
@@ -102,7 +102,7 @@ export const projectsMeta = [
     category: 'systems',
     featured: true,
     visual: 'factory',
-    hue: 206,
+    hue: 200,
     stack: ['Laravel', 'React', 'MySQL', 'Chart.js'],
   },
   {
@@ -111,7 +111,7 @@ export const projectsMeta = [
     category: 'apps',
     featured: true,
     visual: 'map',
-    hue: 160,
+    hue: 168,
     stack: ['Android', 'Firebase', 'Google Maps API', 'Node.js'],
   },
   {
@@ -120,7 +120,7 @@ export const projectsMeta = [
     category: 'platforms',
     featured: true,
     visual: 'subscriptions',
-    hue: 32,
+    hue: 42,
     stack: ['Laravel', 'React', 'React Native', 'MySQL'],
   },
   {
@@ -129,7 +129,7 @@ export const projectsMeta = [
     category: 'stores',
     featured: false,
     visual: 'store',
-    hue: 330,
+    hue: 345,
     stack: ['Laravel', 'React', 'MySQL', 'SEO'],
   },
 ]

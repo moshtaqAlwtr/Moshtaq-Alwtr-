@@ -61,7 +61,7 @@ export default function Navbar() {
         <nav className="container-x flex h-[68px] items-center justify-between gap-4">
           <button
             onClick={() => go('home')}
-            className="group flex items-center gap-2.5 text-[15px] font-extrabold tracking-tight"
+            className="group flex items-center gap-2.5 text-[16.5px] font-extrabold tracking-tight"
           >
             <span className="brand-fill flex h-9 w-9 items-center justify-center rounded-xl transition-transform group-hover:scale-110">
               <Code2 size={17} strokeWidth={2.6} />
@@ -76,7 +76,7 @@ export default function Navbar() {
               <li key={id}>
                 <button
                   onClick={() => go(id)}
-                  className={`relative rounded-lg px-3.5 py-2 text-[13px] font-semibold transition-colors ${
+                  className={`relative rounded-lg px-3.5 py-2 text-[14.5px] font-semibold transition-colors ${
                     active === id ? 'text-text' : 'text-text-3 hover:text-text'
                   }`}
                 >
@@ -128,7 +128,7 @@ export default function Navbar() {
               href={`https://wa.me/${contact.whatsapp}`}
               target="_blank"
               rel="noreferrer"
-              className="btn-primary hidden !px-5 !py-2.5 !text-[13px] sm:inline-flex"
+              className="btn-primary hidden !px-5 !py-2.5 !text-[14.5px] sm:inline-flex"
             >
               {t.nav.cta}
             </a>

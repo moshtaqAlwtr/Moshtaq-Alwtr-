@@ -15,6 +15,7 @@ export default function Contact() {
       href: `https://wa.me/${contact.whatsapp}`,
       hue: 142,
       note: t.contact.fastest,
+      copy: contact.phone,
       ltr: true,
     },
     {
@@ -22,7 +23,7 @@ export default function Contact() {
       icon: Mail,
       value: contact.email,
       href: `mailto:${contact.email}`,
-      hue: 206,
+      hue: 200,
       copy: contact.email,
       ltr: true,
     },
@@ -31,7 +32,7 @@ export default function Contact() {
       icon: Phone,
       value: contact.phone,
       href: `tel:${contact.phone}`,
-      hue: 258,
+      hue: 22,
       copy: contact.phone,
       ltr: true,
     },
@@ -39,7 +40,7 @@ export default function Contact() {
       id: 'location',
       icon: MapPin,
       value: t.profile.location,
-      hue: 32,
+      hue: 42,
     },
   ]
 
@@ -91,7 +92,7 @@ export default function Contact() {
                   <span className="brand-text">{t.contact.panel.titleAccent}</span>
                 </h3>
 
-                <p className="mt-4 text-[15px] leading-[1.9] text-text-3">
+                <p className="mt-4 text-[16.5px] leading-[1.9] text-text-3">
                   {t.contact.panel.desc}
                 </p>
 
@@ -168,16 +169,16 @@ function ChannelCard({ channel, t }) {
 
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <span className="text-[11px] text-text-4">{t.contact.channels[id]}</span>
+          <span className="text-[12.5px] text-text-4">{t.contact.channels[id]}</span>
           {note && (
-            <span className="rounded-full bg-brand/10 px-1.5 py-0.5 text-[9.5px] font-semibold text-brand">
+            <span className="rounded-full bg-brand/10 px-1.5 py-0.5 text-[11px] font-semibold text-brand">
               {note}
             </span>
           )}
         </div>
         {/* <bdi> keeps Latin values reading left-to-right while still sitting at
             the start of the line in RTL. */}
-        <div className="truncate text-[13.5px] font-semibold text-text-2">
+        <div className="truncate text-[15px] font-semibold text-text-2">
           <bdi dir={ltr ? 'ltr' : 'rtl'}>{value}</bdi>
         </div>
       </div>
