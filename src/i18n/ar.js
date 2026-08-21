@@ -57,6 +57,18 @@ export default {
     experienceBadge: 'سنوات خبرة',
   },
 
+  socials: {
+    heading: 'تابعني',
+    sub: 'زُر حساباتي وتواصل معي مباشرة',
+    whatsapp: 'واتساب',
+    facebook: 'فيسبوك',
+    instagram: 'إنستغرام',
+    x: 'إكس (تويتر)',
+    tiktok: 'تيك توك',
+    github: 'جيت هَب',
+    email: 'البريد الإلكتروني',
+  },
+
   cv: {
     label: 'السيرة الذاتية',
     action: 'تحميل السيرة الذاتية',

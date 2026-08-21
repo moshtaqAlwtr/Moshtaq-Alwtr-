@@ -4,6 +4,7 @@ import { useI18n } from '../app/providers'
 import { contact } from '../data/structure'
 import { Reveal, Section, SectionHeading } from './ui'
 import { Magnetic } from './motion/primitives'
+import SocialLinks from './SocialLinks'
 
 export default function Contact() {
   const { t } = useI18n()
@@ -123,9 +124,13 @@ export default function Contact() {
                   </Magnetic>
                 </div>
 
-                <p className="mt-7 border-t border-border pt-6 text-xs text-text-4">
-                  {t.contact.panel.note}
-                </p>
+                <div className="mt-8 border-t border-border pt-6">
+                  <p className="mb-3 text-[13px] font-semibold text-text-3">
+                    {t.socials.heading}
+                  </p>
+                  <SocialLinks />
+                  <p className="mt-5 text-xs text-text-4">{t.contact.panel.note}</p>
+                </div>
               </div>
             </div>
           </Reveal>

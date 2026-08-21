@@ -1,17 +1,12 @@
-import { Code2, Github, Mail, MessageCircle, Phone } from './icons'
+import { Code2 } from './icons'
 import { useI18n } from '../app/providers'
 import { contact, sectionIds } from '../data/structure'
+import SocialLinks from './SocialLinks'
 
 export default function Footer() {
   const { t } = useI18n()
   const year = new Date().getFullYear()
 
-  const socials = [
-    { icon: MessageCircle, href: `https://wa.me/${contact.whatsapp}`, label: 'WhatsApp' },
-    { icon: Mail, href: `mailto:${contact.email}`, label: 'Email' },
-    { icon: Phone, href: `tel:${contact.phone}`, label: 'Phone' },
-    { icon: Github, href: contact.github, label: 'GitHub' },
-  ]
 
   const go = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -33,20 +28,7 @@ export default function Footer() {
               {t.hero.tagline}
             </p>
 
-            <div className="mt-6 flex gap-2">
-              {socials.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith('http') ? '_blank' : undefined}
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="icon-btn h-9 w-9" data-cursor="link"
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
-            </div>
+            <SocialLinks className="mt-6" />
           </div>
 
           <nav>

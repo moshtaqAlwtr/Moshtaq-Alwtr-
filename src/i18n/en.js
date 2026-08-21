@@ -55,6 +55,18 @@ export default {
     experienceBadge: 'years experience',
   },
 
+  socials: {
+    heading: 'Follow me',
+    sub: 'Visit my profiles or reach me directly',
+    whatsapp: 'WhatsApp',
+    facebook: 'Facebook',
+    instagram: 'Instagram',
+    x: 'X (Twitter)',
+    tiktok: 'TikTok',
+    github: 'GitHub',
+    email: 'Email',
+  },
+
   cv: {
     label: 'Résumé',
     action: 'Download CV',

@@ -14,6 +14,24 @@ export const contact = {
 }
 
 /**
+ * Public profiles.
+ *
+ * `brand` is the platform's own colour, used only on hover so the row stays
+ * calm at rest. Every URL here is also emitted as schema.org sameAs, which is
+ * how a search engine ties these accounts to the same person — the strongest
+ * signal available for a name query.
+ */
+export const socials = [
+  { id: 'whatsapp', url: `https://wa.me/${'966535319612'}`, icon: 'MessageCircle', brand: '#25D366' },
+  { id: 'facebook', url: 'https://www.facebook.com/moshtaq.alwatar', icon: 'Facebook', brand: '#1877F2' },
+  { id: 'instagram', url: 'https://www.instagram.com/e.moshtaqkaid', icon: 'Instagram', brand: '#E1306C' },
+  { id: 'x', url: 'https://x.com/MoshtaqK72038', icon: 'X', brand: '#e7e9ea' },
+  { id: 'tiktok', url: 'https://www.tiktok.com/@moshtaq60660', icon: 'TikTok', brand: '#25F4EE' },
+  { id: 'github', url: 'https://github.com/moshtaqalwtr', icon: 'Github', brand: '#f0f6fc' },
+  { id: 'email', url: `mailto:${'moshtaqkaid6@gmail.com'}`, icon: 'Mail', brand: '#EA4335' },
+]
+
+/**
  * CV files in public/cv. Sizes are shown in the download menu so nobody on
  * mobile data starts a 5.7MB download without knowing.
  */
