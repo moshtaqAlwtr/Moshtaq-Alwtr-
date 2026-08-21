@@ -6,7 +6,7 @@ import { contact, statsMeta } from '../data/structure'
 import { CountUp, Typewriter } from './ui'
 import CvDownload from './CvDownload'
 import { Magnetic, SplitText } from './motion/primitives'
-import ConstellationField from './motion/ConstellationField'
+import HeroCanvas from './motion/HeroCanvas'
 
 const rise = (delay) => ({
   initial: { opacity: 0, y: 20 },
@@ -52,7 +52,7 @@ export default function Hero() {
 
   return (
     <section id="home" ref={sectionRef} className="relative overflow-hidden pt-[92px] sm:pt-[104px]">
-      <ConstellationField />
+      <HeroCanvas />
 
       <div className="container-x relative py-12 sm:py-16 lg:py-20">
         <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
