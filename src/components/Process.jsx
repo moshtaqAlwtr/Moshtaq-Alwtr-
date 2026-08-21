@@ -1,21 +1,30 @@
 import { useRef } from 'react'
-import { motion, useInView, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { motion, useInView, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import { useI18n } from '../app/providers'
 import { processMeta } from '../data/structure'
 import { Reveal, Section, SectionHeading } from './ui'
 
+/**
+ * Alternating timeline.
+ *
+ * The rail runs down the centre and steps sit either side of it, so the eye
+ * zigzags instead of scanning one straight column — the same shape the
+ * reference site uses for its experience list, and it reads far less like a
+ * stack of identical cards.
+ *
+ * The rail fills from scroll progress and each node lights as it reaches the
+ * middle of the viewport, so the section reports how far along you are.
+ */
 export default function Process() {
   const { t } = useI18n()
-  const listRef = useRef(null)
+  const railRef = useRef(null)
   const reduced = useReducedMotion()
 
-  // The rail draws itself as the section scrolls past, so the seven steps read
-  // as a route being travelled rather than a static list.
   const { scrollYProgress } = useScroll({
-    target: listRef,
-    offset: ['start 75%', 'end 60%'],
+    target: railRef,
+    offset: ['start 78%', 'end 62%'],
   })
-  const railScale = useSpring(scrollYProgress, {
+  const fill = useSpring(scrollYProgress, {
     stiffness: 90,
     damping: 26,
     restDelta: 0.001,
@@ -31,29 +40,30 @@ export default function Process() {
           desc={t.process.desc}
         />
 
-        <div className="relative" ref={listRef}>
-          {/* unfilled track */}
+        <div ref={railRef} className="relative mx-auto max-w-5xl">
+          {/* rail: centred on desktop, hugging the start edge on mobile */}
           <div
-            className="absolute inset-y-0 hidden w-px bg-border sm:block"
-            style={{ insetInlineStart: '23px' }}
+            className="absolute inset-y-0 start-[19px] w-px bg-border md:start-1/2 md:-translate-x-1/2"
             aria-hidden
           />
-          {/* the portion already travelled */}
           <motion.div
-            className="absolute inset-y-0 hidden w-px origin-top sm:block"
+            className="absolute inset-y-0 start-[19px] w-px origin-top md:start-1/2 md:-translate-x-1/2"
             style={{
-              insetInlineStart: '23px',
-              scaleY: reduced ? 1 : railScale,
-              background:
-                'linear-gradient(180deg, rgb(var(--brand)), rgb(var(--brand-2)))',
-              boxShadow: '0 0 12px rgb(var(--brand) / 0.5)',
+              scaleY: reduced ? 1 : fill,
+              background: 'linear-gradient(180deg, rgb(var(--brand)), rgb(var(--brand-2)))',
+              boxShadow: '0 0 14px rgb(var(--brand) / 0.6)',
             }}
             aria-hidden
           />
 
-          <ol className="space-y-3">
+          <ol className="space-y-6 md:space-y-2">
             {processMeta.map((stepId, i) => (
-              <Step key={stepId} index={i} copy={t.process.steps[stepId]} />
+              <Step
+                key={stepId}
+                index={i}
+                copy={t.process.steps[stepId]}
+                side={i % 2 === 0 ? 'start' : 'end'}
+              />
             ))}
           </ol>
         </div>
@@ -62,39 +72,59 @@ export default function Process() {
   )
 }
 
-function Step({ index, copy }) {
+function Step({ index, copy, side }) {
   const ref = useRef(null)
-  // -45% keeps the marker from lighting until the step reaches mid-viewport,
-  // so the highlight tracks the rail rather than running ahead of it.
-  const reached = useInView(ref, { once: false, margin: '-45% 0px -45% 0px' })
+  // once:false so the node dims again on the way back up, keeping the lit
+  // portion in step with the rail rather than staying permanently on
+  const reached = useInView(ref, { once: false, margin: '-50% 0px -50% 0px' })
+
+  const onStart = side === 'start'
 
   return (
-    <Reveal delay={0.04 * index}>
-      <li ref={ref} className="group relative flex gap-5">
-        <motion.span
-          className="relative z-10 hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl border bg-bg font-mono text-[13px] font-bold sm:flex"
-          animate={{
-            borderColor: reached ? 'rgb(var(--brand) / 0.5)' : 'rgb(var(--border))',
-            color: reached ? 'rgb(var(--brand))' : 'rgb(var(--text-3))',
-            backgroundColor: reached ? 'rgb(var(--brand) / 0.1)' : 'rgb(var(--bg))',
-            scale: reached ? 1.06 : 1,
-          }}
-          transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-          aria-hidden
-        >
-          {String(index + 1).padStart(2, '0')}
-        </motion.span>
+    <li ref={ref} className="relative md:grid md:grid-cols-2 md:items-center md:gap-10">
+      {/* Node sits on the rail: at the start edge on mobile, on the centre
+          line from md up. Same start/translate pair as the rail, so the two
+          stay aligned in both writing directions. */}
+      <motion.span
+        className="absolute top-6 z-10 h-2.5 w-2.5 -translate-x-1/2 rounded-full start-[19px] md:start-1/2 md:top-1/2 md:-translate-y-1/2"
+        animate={{
+          backgroundColor: reached ? 'rgb(var(--brand))' : 'rgb(var(--border-strong))',
+          boxShadow: reached
+            ? '0 0 0 5px rgb(var(--brand) / 0.18)'
+            : '0 0 0 0px rgb(var(--brand) / 0)',
+          scale: reached ? 1.25 : 1,
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+        aria-hidden
+      />
 
-        <div className="card card-hover edge-glow flex-1 rounded-2xl p-5 sm:p-6">
-          <div className="mb-2 flex items-center gap-3">
-            <span className="font-mono text-[13px] font-bold text-brand sm:hidden">
+      <Reveal
+        delay={0.04}
+        className={
+          onStart
+            ? 'ps-12 md:col-start-1 md:pe-2 md:ps-0 md:text-end'
+            : 'ps-12 md:col-start-2 md:ps-2'
+        }
+      >
+        <div className="card card-hover edge-glow rounded-2xl p-5 sm:p-6">
+          <div
+            className={`mb-2 flex items-center gap-3 ${onStart ? 'md:flex-row-reverse' : ''}`}
+          >
+            <motion.span
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg font-mono text-[13px] font-bold"
+              animate={{
+                backgroundColor: reached ? 'rgb(var(--brand) / 0.14)' : 'rgb(var(--surface-2))',
+                color: reached ? 'rgb(var(--brand))' : 'rgb(var(--text-4))',
+              }}
+              transition={{ duration: 0.3 }}
+            >
               {String(index + 1).padStart(2, '0')}
-            </span>
+            </motion.span>
             <h3 className="text-base font-bold tracking-tight">{copy.title}</h3>
           </div>
           <p className="text-[15px] leading-[1.85] text-text-3">{copy.desc}</p>
         </div>
-      </li>
-    </Reveal>
+      </Reveal>
+    </li>
   )
 }
