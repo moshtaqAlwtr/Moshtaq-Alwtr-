@@ -8,8 +8,9 @@
     "dev": "vite",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist",
-    "build:client": "vite build"
+    "deploy": "npm run build && gh-pages -d dist -b main -m \"Deploy site\"",
+    "build:client": "vite build",
+    "push:source": "git push origin main:source"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",

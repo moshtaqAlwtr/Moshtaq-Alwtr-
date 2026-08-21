@@ -30,12 +30,16 @@ npm run preview    # معاينة نسخة الإنتاج
 المشروع مهيّأ للمستودع `Moshtaq-Alwtr-`:
 `https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/`
 
+**مهم:** GitHub Pages في هذا المستودع تخدم من جذر الفرع `main` — لا من فرع
+`gh-pages`. فالبناء يُرفع إلى `main`، والكود المصدري يعيش على فرع `source`:
+
 ```bash
-npm run deploy     # يبني ويرفع dist إلى فرع gh-pages
+npm run deploy        # يبني ويرفع dist إلى main  ← يحدّث الموقع الحيّ
+npm run push:source   # يرفع الكود المصدري إلى فرع source
 ```
 
-أو نشر تلقائي عبر `.github/workflows/deploy.yml` مع كل `push`
-(فعّله من **Settings → Pages → Source → GitHub Actions**).
+> لو رفعت الكود المصدري إلى `main` بالخطأ، سينكسر الموقع الحيّ — لأن Pages
+> ستقدّم `index.html` الذي يشير إلى `/src/main.jsx` غير المبني.
 
 للنشر على نطاق خاص (جذر الدومين):
 
