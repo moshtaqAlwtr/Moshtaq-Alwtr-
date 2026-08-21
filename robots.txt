@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Explicitly welcome the crawlers that matter for a branded Arabic query
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/sitemap.xml
