@@ -4,11 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0c0a09" />
-    <!-- An SVG mark instead of the portrait: the photo is a 1066x1600 86KB
-         JPEG, so browsers were downloading all of it for a 16px icon and
-         squashing a portrait into a square. This is 0.6KB and sharp at any size. -->
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <!-- The portrait itself, pre-cropped to the face at each size. The source
+         photo is 1066x1600 and 86KB — pointing a favicon at it downloaded the
+         whole file for a 16px slot and squashed a 2:3 image into a square.
+         These are square crops tight enough that the face still reads at 16px,
+         and the largest is 38KB. No SVG icon is declared, because browsers
+         prefer one when present and it would win over the photo. -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="./favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="180x180" href="./favicon-180.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
     <link rel="manifest" href="./site.webmanifest" />
 
