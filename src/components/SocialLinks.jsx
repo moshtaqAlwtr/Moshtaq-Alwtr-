@@ -45,7 +45,10 @@ function Tile({ social, label, large, delay }) {
     <motion.a
       href={social.url}
       target={external ? '_blank' : undefined}
-      rel={external ? 'noreferrer noopener' : undefined}
+      // rel="me" declares these as verified identity links for the same
+      // person — the mechanism IndieAuth/Mastodon use, and a signal search
+      // engines read alongside the sameAs entries in the page's JSON-LD.
+      rel={external ? 'me noreferrer noopener' : undefined}
       aria-label={label}
       title={label}
       data-cursor="link"

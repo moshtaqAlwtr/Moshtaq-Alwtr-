@@ -41,10 +41,14 @@
     <meta property="og:url" content="https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/" />
     <meta property="og:title" content="مشتاق الوتر | مهندس برمجيات Full Stack" />
     <meta property="og:description" content="أبني أنظمة ERP ومتاجر إلكترونية وتطبيقات موبايل — React · Laravel · Node.js" />
-    <meta property="og:image" content="https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/moshtaq.jpg" />
-    <meta property="og:image:alt" content="مشتاق الوتر — مهندس برمجيات" />
-    <meta property="og:image:width" content="1066" />
-    <meta property="og:image:height" content="1600" />
+    <!-- 1200x630 is what Facebook/WhatsApp/LinkedIn/X crop an OG image to.
+         Pointing this at the 2:3 portrait meant a shared link — the primary
+         discovery channel for a freelancer in Saudi, via WhatsApp — showed a
+         badly cropped sliver instead of a legible card. -->
+    <meta property="og:image" content="https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/og-cover.jpg" />
+    <meta property="og:image:alt" content="مشتاق الوتر — مهندس برمجيات Full Stack" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="profile:first_name" content="مشتاق" />
     <meta property="profile:last_name" content="الوتر" />
@@ -52,7 +56,9 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="مشتاق الوتر | مهندس برمجيات Full Stack" />
     <meta name="twitter:description" content="أبني أنظمة ERP ومتاجر إلكترونية وتطبيقات موبايل — React · Laravel · Node.js" />
-    <meta name="twitter:image" content="https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/moshtaq.jpg" />
+    <meta name="twitter:image" content="https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/og-cover.jpg" />
+    <meta name="twitter:site" content="@MoshtaqK72038" />
+    <meta name="twitter:creator" content="@MoshtaqK72038" />
 
     <!-- The portrait is the largest element in the first viewport, so it is
          also the LCP candidate; preloading it removes a round trip. -->
@@ -108,6 +114,24 @@
             "name": "مشتاق الوتر",
             "inLanguage": "ar",
             "publisher": { "@id": "https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/#person" }
+          },
+          {
+            "@type": "Service",
+            "serviceType": "تطوير برمجيات",
+            "provider": { "@id": "https://moshtaqalwtr.github.io/Moshtaq-Alwtr-/#person" },
+            "areaServed": { "@type": "Country", "name": "SA" },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "الخدمات",
+              "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "تطوير تطبيقات ومواقع الويب" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "تطوير تطبيقات الجوال" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "أنظمة إدارية و ERP" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "تطوير متاجر إلكترونية" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "تكامل الـ APIs" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "تحسين محركات البحث SEO" } }
+              ]
+            }
           }
         ]
       }
